@@ -31,7 +31,7 @@ export default function LoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (!phone || !password) {
       setError("Telefon raqam va parolni kiriting");
       return;
