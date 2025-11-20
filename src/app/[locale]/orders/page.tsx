@@ -49,7 +49,7 @@ export default function OrdersPage() {
         return;
       }
 
-      const res = await axios.get("https://fixoo-backend.onrender.com/api/v1/orders/history", {
+      const res = await axios.get("https://fixoo-backend.onrender.com/api/v1/Master/orders/history", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
