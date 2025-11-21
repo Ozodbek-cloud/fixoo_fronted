@@ -112,7 +112,7 @@ const ClientNavigation = () => {
             <div className="flex-shrink-0">
               <div className="flex items-center gap-2">
                 <Image
-                  src="/fixoo_icon.png"
+                  src="/fixoo.png"
                   alt="Fixoo Icon"
                   width={50}
                   height={50}
