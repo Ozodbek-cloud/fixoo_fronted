@@ -70,7 +70,7 @@ export default function OrdersPage() {
         price: order.price || undefined,
       }));
 
-      setOrders(ordersData.data);
+      setOrders(ordersData);
     } catch (error) {
       console.error("Buyurtmalarni olishda xatolik:", error);
       toast.error("Buyurtmalarni yuklashda xatolik yuz berdi");

@@ -42,6 +42,17 @@ export default function RegisterPage() {
     region: "",
     district: "",
   });
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const rol = localStorage.getItem("userRole");
+
+    if (token && rol === "MASTER") {
+      router.push("/homespecialist");
+    } else if (token && rol === 'USER') {
+      router.push("/homeclient");
+    }
+  }, [router]);
+
 
   const [districts, setDistricts] = useState<
     { value: string; label: string }[]
@@ -65,7 +76,7 @@ export default function RegisterPage() {
   useEffect(() => {
     const handleComplete = () => setIsLoading(false);
 
-    return () => {};
+    return () => { };
   }, []);
 
   // Form validation function
@@ -209,21 +220,19 @@ export default function RegisterPage() {
 
           <div className="flex mb-6 sm:mb-8 bg-gray-100 rounded-xl p-1">
             <button
-              className={`flex-1 py-3 font-medium rounded-lg transition-all duration-200 text-sm sm:text-base ${
-                role === "MASTER"
-                  ? "bg-teal-600 text-white shadow-lg"
-                  : "text-gray-600 hover:text-gray-800"
-              }`}
+              className={`flex-1 py-3 font-medium rounded-lg transition-all duration-200 text-sm sm:text-base ${role === "MASTER"
+                ? "bg-teal-600 text-white shadow-lg"
+                : "text-gray-600 hover:text-gray-800"
+                }`}
               onClick={() => setRole("MASTER")}
             >
               {t("specialist")}
             </button>
             <button
-              className={`flex-1 py-3 font-medium rounded-lg transition-all duration-200 text-sm sm:text-base ${
-                role === "USER"
-                  ? "bg-teal-600 text-white shadow-lg"
-                  : "text-gray-600 hover:text-gray-800"
-              }`}
+              className={`flex-1 py-3 font-medium rounded-lg transition-all duration-200 text-sm sm:text-base ${role === "USER"
+                ? "bg-teal-600 text-white shadow-lg"
+                : "text-gray-600 hover:text-gray-800"
+                }`}
               onClick={() => setRole("USER")}
             >
               {t("client")}
@@ -443,11 +452,10 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={!isFormValid()}
-              className={`w-full py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-200 shadow-lg hover:shadow-xl ${
-                isFormValid()
-                  ? "bg-gradient-to-r from-teal-600 to-teal-700 text-white hover:from-teal-700 hover:to-teal-800 focus:ring-4 focus:ring-teal-200 transform hover:scale-[1.02]"
-                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
-              }`}
+              className={`w-full py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-200 shadow-lg hover:shadow-xl ${isFormValid()
+                ? "bg-gradient-to-r from-teal-600 to-teal-700 text-white hover:from-teal-700 hover:to-teal-800 focus:ring-4 focus:ring-teal-200 transform hover:scale-[1.02]"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
             >
               {t("create_account")}
             </button>
