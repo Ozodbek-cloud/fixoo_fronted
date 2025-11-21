@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'fixoo-backend.onrender.com',
+        port: '', // agar standart 443 bo‘lsa bo‘sh qoldiring
+        pathname: '/image/**', // barcha image pathlariga ruxsat
+      },
+      {
+        protocol: 'https',
         hostname: 'ik-1.onrender.com',
         pathname: '/**',
       },

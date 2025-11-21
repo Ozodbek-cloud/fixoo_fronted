@@ -91,14 +91,17 @@ export default function VerifyPhonePage() {
 
     setIsLoading(true);
 
+    const clearPhone = phoneNumber?.replace(/\s+/g, "");
+    console.log(clearPhone, purpose, verificationCode); 
+
     try {
       // 1. Avval OTP ni tekshiramiz
       const verifyResponse = await axios.post(
         "https://fixoo-backend.onrender.com/api/v1/verification/verify",
         {
-          type: purpose,
-          phone: phoneNumber,
-          otp: verificationCode,
+          type: 'reset_password',
+          otp:verificationCode,
+          phone: clearPhone,
         }
       );
 
@@ -114,7 +117,7 @@ export default function VerifyPhonePage() {
             const userRole = localStorage.getItem("userRole");
             let registerResponse: any;
 
-            
+
             try {
               if (userRole === "MASTER") {
                 registerResponse = await axios.post(
@@ -162,7 +165,7 @@ export default function VerifyPhonePage() {
             } catch (registrationError: any) {
               console.error("Registration error:", registrationError);
               setError(
-                registrationError.response?.data?.message || 
+                registrationError.response?.data?.message ||
                 "Ro'yxatdan o'tishda xatolik yuz berdi"
               );
             }
@@ -273,13 +276,12 @@ export default function VerifyPhonePage() {
                   onChange={(e) => handleCodeChange(index, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(index, e)}
                   onPaste={index === 0 ? handlePaste : undefined}
-                  className={`w-11 h-12 text-center text-xl font-bold border-2 rounded-lg transition-all duration-200 ${
-                    error
-                      ? "border-red-500 bg-red-50"
-                      : digit
+                  className={`w-11 h-12 text-center text-xl font-bold border-2 rounded-lg transition-all duration-200 ${error
+                    ? "border-red-500 bg-red-50"
+                    : digit
                       ? "border-teal-500 bg-teal-50"
                       : "border-gray-300 focus:border-teal-500 focus:bg-teal-50"
-                  }`}
+                    }`}
                 />
               ))}
             </div>

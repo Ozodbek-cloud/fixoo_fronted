@@ -39,23 +39,24 @@ export default function ResetPasswordPage() {
 
   //   return true;
   // };
-
+   const clearPhone = phone.replace(/\s+/g, "");
   const handlePasswordReset = async () => {
     // if (!validatePasswords()) return;
     setIsLoading(true);
     try {
+      
       // Send verification code via API
       const sendOtp = await axios.post(
         "https://fixoo-backend.onrender.com/api/v1/verification/send",
         {
-          type: "reset-password",
-          phone: phone,
+          type: "reset_password",
+          phone: clearPhone,
         }
       );
 
       // Navigate to phone verification page
       router.push(
-        `/verify-phone?phone=${encodeURIComponent(phone)}&purpose=reset-password`
+        `/verify-phone?phone=${encodeURIComponent(phone)}&purpose=reset_password`
       );
     } catch (error) {
       console.error("Error sending OTP:", error);
