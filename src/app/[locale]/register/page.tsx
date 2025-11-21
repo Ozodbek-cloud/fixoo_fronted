@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { professions } from "../../lib/profession-data";
 import { regions, getDistricts } from "../../lib/location-data";
 import LangSwitch from "../../components/LangSwitch";
-import PhoneInput from "../../components/PhoneInput";
+
 import axios from "axios";
 import HammerLoader from "../../components/HammerLoader";
 

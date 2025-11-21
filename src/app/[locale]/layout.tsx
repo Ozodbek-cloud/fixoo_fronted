@@ -38,7 +38,7 @@ export default function LocaleLayout({ children, params }: Props) {
   }, [pathname]);
 
   // Pages where no navigation should be shown
-  const publicPages = ['/', '/login', '/register', '/verify-phone', '/reset-password'];
+  const publicPages = ['/', '/login', '/register', '/verify-phone', '/reset-password','/newpassword'];
   
   // Pages that should use specialist navigation
   const specialistPages = ['/homespecialist', '/orders'];

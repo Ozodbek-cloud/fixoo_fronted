@@ -97,15 +97,26 @@ export default function VerifyPhonePage() {
     try {
       // 1. Avval OTP ni tekshiramiz
       const verifyResponse = await axios.post(
-        "https://fixoo-backend.onrender.com/api/v1/verification/verify",
+        "http://localhost:3001/api/v1/verification/verify",
         {
-          type: 'reset_password',
-          otp:verificationCode,
+          type: purpose,
           phone: clearPhone,
+          otp:verificationCode,
         }
       );
 
+      console.log(verifyResponse.data.success)
+      
+
       if (verifyResponse.data.success) {
+
+        if(purpose =="reset_password"){
+          localStorage.setItem("code",verificationCode)
+          localStorage.setItem("phone",clearPhone ?? "")
+
+          router.push("/newpassword")
+        }
+
         if (purpose === "register") {
           const formDataRaw = localStorage.getItem("FormData");
 
@@ -164,6 +175,8 @@ export default function VerifyPhonePage() {
               }
             } catch (registrationError: any) {
               console.error("Registration error:", registrationError);
+              console.log(registrationError);
+              
               setError(
                 registrationError.response?.data?.message ||
                 "Ro'yxatdan o'tishda xatolik yuz berdi"
@@ -205,9 +218,11 @@ export default function VerifyPhonePage() {
     setCode(["", "", "", "", "", ""]); // Clear kod inputlarini
 
     try {
+    const clearPhone = phoneNumber?.replace(/\s+/g, "");
+
       await axios.post("https://fixoo-backend.onrender.com/api/v1/verification/send", {
         type: purpose,
-        phone: phoneNumber
+        phone: clearPhone
       });
       alert("Yangi kod yuborildi!");
     } catch (error: any) {
