@@ -34,6 +34,8 @@ export default function OrdersPage() {
     clientName: "",
     orderToComplete: null as Order | null,
   });
+  
+
 
   const totalOrders = orders.length;
   const pendingCount = orders.filter((o) => o.status === "pending").length;
@@ -68,7 +70,7 @@ export default function OrdersPage() {
         price: order.price || undefined,
       }));
 
-      setOrders(ordersData);
+      setOrders(ordersData.data);
     } catch (error) {
       console.error("Buyurtmalarni olishda xatolik:", error);
       toast.error("Buyurtmalarni yuklashda xatolik yuz berdi");
@@ -211,7 +213,7 @@ export default function OrdersPage() {
         return status;
     }
   };
-
+  
   const newOrders = orders.filter((o) => o.status === "pending");
   const historyOrders = orders.filter((o) => o.status !== "pending");
 
@@ -220,6 +222,7 @@ export default function OrdersPage() {
       <HammerLoader fullScreen={true} showText={true} text="Yuklanmoqda..." />
     );
   }
+  console.log(orders)
 
   return (
     <div className="min-h-screen bg-gray-50">
