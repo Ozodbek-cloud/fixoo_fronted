@@ -47,7 +47,7 @@ export default function LocaleLayout({ children, params }: Props) {
   const clientPages = ['/homeclient'];
   
   // Shared pages that use role-based navigation
-  const sharedPages = ['/searchspecialist', '/setting'];
+  const sharedPages = ['/searchspecialist', '/setting', 'about_master'];
   
   const shouldShowNavbar = !publicPages.some(page => 
     pathname === `/${locale}${page}` || pathname === `/${locale}${page}/`
