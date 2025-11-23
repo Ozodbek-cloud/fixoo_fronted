@@ -47,6 +47,7 @@ function Page() {
   const { id } = useParams()
 
   const [master, setMaster] = useState<User | null>(null)
+  const [masterfiles, setMasterFiles] = useState<PortfolioFile[]>([])
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [selectedOrderForModal, setSelectedOrderForModal] =
     useState<OrderHistory | null>(null);
@@ -55,14 +56,14 @@ function Page() {
 
   const [modalAddress, setModalAddress] = useState("");
   const [modalDescription, setModalDescription] = useState("");
-
   useEffect(() => {
     axios
-      .get(`https://fixoo-backend.onrender.com/api/v1/master/by/${id}`)
-      .then((res) => setMaster(res.data.data))
-      .catch(err => console.log(err));
+    .get(`https://fixoo-backend.onrender.com/api/v1/master/by/${id}`)
+    .then((res) => {setMaster(res.data.data); setMasterFiles(res.data.data.files)})
+    .catch(err => console.log(err));
   }, [])
-
+  
+  
   const orderSpecialist = () => {
     if (!master) return;
 
@@ -174,9 +175,9 @@ function Page() {
           <div className='p-4 rounded-2xl shadow-[0px_0px_6px_5px_rgba(0,_0,_0,_0.1)]'>
             <h1 className='text-2xl font-bold'>Portfolio</h1>
 
-            {master.files?.length > 0 ? (
+            {masterfiles.length > 0 ? (
               <div className="grid grid-cols-2 gap-2">
-                {master.files?.map((file) => {
+                {masterfiles.map((file) => {
                   const fileUrl = `https://fixoo-backend.onrender.com/${file.fileType}/${file.fileUrl}`;
                   const isImage = file.fileType === "image";
                   const isVideo = file.fileType === "video";
