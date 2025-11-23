@@ -35,11 +35,7 @@ interface User {
   phone: string;
   profession: string;
   region: string;
-  district: string;
-  files: {
-
-  }
-  
+  district: string;  
 }
 
 function Page() {
@@ -63,7 +59,7 @@ function Page() {
     .catch(err => console.log(err));
   }, [])
   
-  
+   console.log(masterfiles)
   const orderSpecialist = () => {
     if (!master) return;
 
