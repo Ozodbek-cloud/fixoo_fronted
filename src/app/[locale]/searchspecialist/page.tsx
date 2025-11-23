@@ -361,21 +361,19 @@ export default function SearchPage() {
             <div className="flex space-x-2">
               <button
                 onClick={() => setActiveTab("search")}
-                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-200 ${
-                  activeTab === "search"
+                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-200 ${activeTab === "search"
                     ? "bg-teal-600 text-white shadow-lg"
                     : "text-gray-600 hover:text-teal-600 hover:bg-gray-50"
-                }`}
+                  }`}
               >
                 {t("navigation.specialist_search")}
               </button>
               <button
                 onClick={() => setActiveTab("history")}
-                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-200 ${
-                  activeTab === "history"
+                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-200 ${activeTab === "history"
                     ? "bg-teal-600 text-white shadow-lg"
                     : "text-gray-600 hover:text-teal-600 hover:bg-gray-50"
-                }`}
+                  }`}
               >
                 Buyurtmalar tarixi
               </button>
@@ -519,6 +517,7 @@ export default function SearchPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {results.map((user, index) => (
                       <div
+
                         key={index}
                         className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-200"
                       >
@@ -552,25 +551,33 @@ export default function SearchPage() {
                             </span>{" "}
                             {user.district}
                           </p>
-                          <p>
-                            <span className="font-medium">{t("phone")}:</span>{" "}
-                            {user.phone}
-                          </p>
+                          {/* <p>
+                              <span className="font-medium">{t("phone")}:</span>{" "}
+                              {user.phone}
+                            </p> */}
                         </div>
 
                         <div className="flex gap-2">
-                          <button
-                            onClick={() => window.open(`tel:${user.phone}`)}
-                            className="flex-1 bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition-colors duration-200 font-medium"
-                          >
-                            {t("phone")}
-                          </button>
+                          {/* <button
+                              onClick={() => window.open(`tel:${user.phone}`)}
+                              className="flex-1 bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition-colors duration-200 font-medium"
+                            >
+                              {t("phone")}
+                            </button> */}
                           <button
                             onClick={() => orderSpecialist(user)}
                             className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium"
                           >
                             Buyurtma
                           </button>
+
+                          <button
+                            onClick={() => router.push(`/about_master/${user.id}`)}
+                            className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium"
+                          >
+                            Batafsil
+                          </button>
+
                         </div>
                       </div>
                     ))}

@@ -377,7 +377,7 @@ export default function SpecialistHomePage() {
                 const isImage = file.fileType === "image";
                 const isVideo = file.fileType === "video";
                 const isPDF = file.fileType === "pdf";
-
+                
                 return (
                   <div
                     key={file.id || index}
