@@ -118,7 +118,7 @@ export default function SpecialistHomePage() {
     fetchProfileFiles();
   }, [router, t, handleFixooAnimationComplete]);
 
-  const toggleAvailability = () => {
+  const   toggleAvailability = () => {
     const newStatus = !isAvailable;
     setIsAvailable(newStatus);
     localStorage.setItem("isAvailable", newStatus.toString());
