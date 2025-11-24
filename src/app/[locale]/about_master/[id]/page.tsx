@@ -178,6 +178,7 @@ function Page() {
                   const isImage = file.fileType === "image";
                   const isVideo = file.fileType === "video";
                   const isPDF = file.fileType === "pdf";
+                  console.log('2', file.fileType, '1', file.fileUrl)
 
                   return (
                     <div key={file.id} className="relative rounded-lg p-4">

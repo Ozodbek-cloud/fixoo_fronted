@@ -11,6 +11,7 @@ import HammerLoader from "../../components/HammerLoader";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import axios from "axios";
 import Image from "next/image";
+import StatusModal from "@/app/components/StatusModal";
 
 type FormData = {
   firstName: string;
@@ -39,6 +40,7 @@ export default function SpecialistHomePage() {
   const [userData, setUserData] = useState<FormData | null>(null);
   const [isAvailable, setIsAvailable] = useState(true);
   const [portfolioFiles, setPortfolioFiles] = useState<PortfolioFile[]>([]);
+  const [open, setOpen] = useState(false)
 
   const handleFixooAnimationComplete = useCallback(async () => {
     setShowFixooAnimation(false);
@@ -249,7 +251,7 @@ export default function SpecialistHomePage() {
             </div>
 
             {/* Availability Toggle */}
-            <div className="flex items-center space-x-3 bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+            {/* <div className="flex items-center space-x-3 bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
               <div className="flex items-center space-x-2">
                 <div
                   className={`w-3 h-3 rounded-full ${
@@ -272,6 +274,16 @@ export default function SpecialistHomePage() {
                   }`}
                 />
               </button>
+            </div> */}
+            <div className="p-10">
+              <button
+                onClick={() => setOpen(true)}
+                className="px-4 py-3 rounded-2xl bg-green-400 hover:opacity-80 text-white font-bold transition-all duration-200"
+              >
+                Bandlikni Boshqarish
+              </button>
+
+              <StatusModal open={open} onClose={() => setOpen(false)} />
             </div>
           </div>
         </div>
@@ -377,7 +389,7 @@ export default function SpecialistHomePage() {
                 const isImage = file.fileType === "image";
                 const isVideo = file.fileType === "video";
                 const isPDF = file.fileType === "pdf";
-                
+
                 return (
                   <div
                     key={file.id || index}
@@ -497,9 +509,10 @@ export default function SpecialistHomePage() {
             </div>
           )}
         </div>
+
       </div>
 
       <ToastContainer />
-    </div>
+    </div >
   );
 }
