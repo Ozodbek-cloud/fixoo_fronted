@@ -97,7 +97,7 @@ export default function VerifyPhonePage() {
     try {
       // 1. Avval OTP ni tekshiramiz
       const verifyResponse = await axios.post(
-        "http://localhost:3001/api/v1/verification/verify",
+        "https://fixoo-backend.onrender.com/api/v1/verification/verify",
         {
           type: purpose,
           phone: clearPhone,
