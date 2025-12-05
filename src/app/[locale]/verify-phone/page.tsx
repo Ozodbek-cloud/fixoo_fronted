@@ -91,7 +91,7 @@ export default function VerifyPhonePage() {
 
     setIsLoading(true);
 
-    const clearPhone = phoneNumber?.replace(/\s+/g, "");
+    const clearPhone = phoneNumber?.replace(/\s+/g, ""); 
     console.log(clearPhone, purpose, verificationCode); 
 
     try {
