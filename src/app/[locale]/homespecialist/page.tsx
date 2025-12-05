@@ -40,7 +40,7 @@ export default function SpecialistHomePage() {
   const [userData, setUserData] = useState<FormData | null>(null);
   const [isAvailable, setIsAvailable] = useState(true);
   const [portfolioFiles, setPortfolioFiles] = useState<PortfolioFile[]>([]);
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const [isAvailabilityModalOpen, setIsAvailabilityModalOpen] = useState(false);
 
@@ -58,7 +58,7 @@ export default function SpecialistHomePage() {
         router.push("/");
         return;
       }
-      
+
       const newAvailability = !isAvailable; // Modal ochilganda tanlangan qiymatga qarab, yangi holatni hisoblaymiz.
 
       if (!newAvailability) {
@@ -100,7 +100,7 @@ export default function SpecialistHomePage() {
       // Backend bilan muvaffaqiyatli aloqadan so'ng Frontend holatini yangilash
       setIsAvailable(newAvailability);
       localStorage.setItem("isAvailable", newAvailability.toString());
-      
+
       closeAvailabilityModal();
     } catch (error) {
       console.error("Bandlik sozlashda xatolik:", error);
@@ -114,11 +114,14 @@ export default function SpecialistHomePage() {
     setShowFixooAnimation(false);
 
     try {
-      const response = await axios.get("https://fixoo-backend.onrender.com/api/v1/my/profile", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+      const response = await axios.get(
+        "https://fixoo-backend.onrender.com/api/v1/my/profile",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
 
       const parsedData = response.data.data;
       setUserData(parsedData);
@@ -126,7 +129,7 @@ export default function SpecialistHomePage() {
 
       const available = localStorage.getItem("isAvailable");
       // Agar isAvailable qiymati localStorage da mavjud bo'lmasa, true deb qabul qilamiz
-      setIsAvailable(available === "false" ? false : true); 
+      setIsAvailable(available === "false" ? false : true);
     } catch (error) {
       console.error("Profilni yuklashda xatolik:", error);
       toast.error("Profilni yuklashda xatolik yuz berdi.");
@@ -155,11 +158,14 @@ export default function SpecialistHomePage() {
       }
 
       try {
-        const response = await axios.get("https://fixoo-backend.onrender.com/api/v1/my/files", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
+        const response = await axios.get(
+          "https://fixoo-backend.onrender.com/api/v1/my/files",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
 
         const savedFiles = response.data.data;
         if (savedFiles) {
@@ -191,25 +197,6 @@ export default function SpecialistHomePage() {
     fetchProfileFiles();
   }, [router, t, handleFixooAnimationComplete]);
 
-  // isAvailability modal ichida boshqarilgani uchun ushbu funksiyani o'chirib tashlaymiz
-  /*
-  const toggleAvailability = () => {
-    const newStatus = !isAvailable;
-    setIsAvailable(newStatus);
-    localStorage.setItem("isAvailable", newStatus.toString());
-
-    toast.success(
-      newStatus
-        ? `${t("available")} - Mijozlar sizni topishi mumkin`
-        : `${t("unavailable")} - Mijozlar sizni topa olmaydi`,
-      {
-        position: "top-center",
-        autoClose: 2000,
-      }
-    );
-  };
-  */
-
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -218,7 +205,7 @@ export default function SpecialistHomePage() {
       const formData = new FormData();
       Array.from(files).forEach((file) => {
         // "files" backend kutayotgan field nomi bo'lishi kerak
-        formData.append("files", file); 
+        formData.append("files", file);
       });
 
       try {
@@ -244,7 +231,7 @@ export default function SpecialistHomePage() {
           }
         );
         // Fayl input qiymatini tozalash
-        event.target.value = '';
+        event.target.value = "";
       } catch (error) {
         console.error("Fayl yuklashda xatolik:", error);
         toast.error("Fayl yuklashda xatolik yuz berdi.", {
@@ -260,11 +247,14 @@ export default function SpecialistHomePage() {
 
     try {
       // Backenddan faylni o'chirish
-      await axios.delete(`https://fixoo-backend.onrender.com/api/v1/files/${fileToRemove.id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+      await axios.delete(
+        `https://fixoo-backend.onrender.com/api/v1/files/${fileToRemove.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
 
       // Fayl o'chirilganidan so'ng state va localStorage-ni yangilash
       const updatedFiles = portfolioFiles.filter((_, i) => i !== index);
@@ -331,48 +321,22 @@ export default function SpecialistHomePage() {
               <button
                 onClick={openAvailabilityModal}
                 // Haqiqiy tugma BG ni moslash uchun o'zgartirdim, chunki tashqi div oq rangda edi
-                className="bg-teal-500/20 backdrop-blur-sm px-4 py-2 rounded-lg text-teal-700 text-sm hover:bg-teal-500/30 transition font-medium" 
+                className="bg-teal-500/20 backdrop-blur-sm px-4 py-2 rounded-lg text-teal-700 text-sm hover:bg-teal-500/30 transition font-medium"
               >
                 Bandlikni to‘g‘irlash
               </button>
 
-            {/* Availability Toggle */}
-            {/* <div className="flex items-center space-x-3 bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
-              <div className="flex items-center space-x-2">
-                <div
-                  className={`w-3 h-3 rounded-full ${
-                    isAvailable ? "bg-green-400" : "bg-red-500" // Band holati uchun qizil rang
-                  }`}
-                ></div>
-                <span className="text-sm font-medium text-gray-700">
-                  {isAvailable ? "Faolman" : "Band"}
-                </span>
+              <div className="p-10">
+                <button
+                  onClick={() => setOpen(true)}
+                  className="px-4 py-3 rounded-2xl bg-green-400 hover:opacity-80 text-white font-bold transition-all duration-200"
+                >
+                  Bandlikni Boshqarish
+                </button>
+
+                <StatusModal open={open} onClose={() => setOpen(false)} />
               </div>
-              <button
-                onClick={toggleAvailability}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-300 focus:ring-offset-2 ${
-                  isAvailable ? "bg-green-500" : "bg-gray-400"
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out ${
-                    isAvailable ? "translate-x-6" : "translate-x-1"
-                  }`}
-                />
-              </button>
-            </div> */}
-            <div className="p-10">
-              <button
-                onClick={() => setOpen(true)}
-                className="px-4 py-3 rounded-2xl bg-green-400 hover:opacity-80 text-white font-bold transition-all duration-200"
-              >
-                Bandlikni Boshqarish
-              </button>
-
-              <StatusModal open={open} onClose={() => setOpen(false)} />
             </div>
-
-
           </div>
         </div>
 
@@ -385,11 +349,11 @@ export default function SpecialistHomePage() {
                 <input
                   type="checkbox"
                   checked={isAvailable}
-                  // isAvailable ni o'zgartirish o'rniga, newAvailability state ni ishlatish maqsadga muvofiq,
-                  // lekin soddalik uchun hozirgi holatni teskarisiga o'rnatishni saqlaymiz.
-                  onChange={() => setIsAvailable(!isAvailable)} 
+                  onChange={() => setIsAvailable(!isAvailable)}
                 />
-                <label className="text-sm">{isAvailable ? "Faolman (Mijozlar topishi mumkin)" : "Bandman (Mijozlar topa olmaydi)"}</label>
+                <label className="text-sm">
+                  {isAvailable ? "Faolman (Mijozlar topishi mumkin)" : "Bandman (Mijozlar topa olmaydi)"}
+                </label>
               </div>
 
               <div className="flex justify-end space-x-2">
@@ -409,7 +373,6 @@ export default function SpecialistHomePage() {
             </div>
           </div>
         )}
-
 
         {/* Profile Information */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
@@ -506,8 +469,7 @@ export default function SpecialistHomePage() {
 
           {/* Portfolio Files */}
           {portfolioFiles.length > 0 ? (
-            // Fayllar ko'rinishi uchun grid o'lchamini kattalashtirdim (gap-2 dan gap-4 ga)
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"> 
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {portfolioFiles.map((file, index) => {
                 const fileUrl = `https://fixoo-backend.onrender.com/${file.fileType}/${file.fileUrl}`;
                 const isImage = file.fileType === "image";
@@ -518,19 +480,19 @@ export default function SpecialistHomePage() {
                   <div
                     key={file.id || index}
                     className="relative group rounded-lg overflow-hidden border border-gray-200 shadow-sm transition hover:shadow-md"
-                    // Asosiy kontent maydonini aniqlaymiz, padding o'rniga flex/min-height ishlatamiz.
-                  > 
+                  >
                     <div className="flex items-center justify-center w-full h-40 bg-gray-100 p-2">
                       {isImage ? (
-                        // Image componentining o'lchamini mosladim
-                        <Image
-                          src={fileUrl}
-                          alt="Image"
-                          layout="fill" 
-                          objectFit="cover" 
-                          className="w-full h-full"
-                          priority
-                        />
+                        <div className="relative w-full h-full">
+                          <Image
+                            src={fileUrl}
+                            alt="Image"
+                            fill
+                            style={{ objectFit: "cover" }}
+                            className="w-full h-full"
+                            priority
+                          />
+                        </div>
                       ) : isVideo ? (
                         <video
                           controls
@@ -587,7 +549,7 @@ export default function SpecialistHomePage() {
                         </div>
                       )}
                     </div>
-                    
+
                     {/* Hoverda chiqadigan o‘chirish tugmasi */}
                     <button
                       onClick={() => removeFile(index)}
@@ -628,7 +590,7 @@ export default function SpecialistHomePage() {
                 />
               </svg>
               <p className="text-gray-500 mb-4">
-                Hozircha **portfolio fayllari yo'q**  
+                Hozircha <strong>portfolio fayllari yo'q</strong>
               </p>
               <p className="text-sm text-gray-400">
                 Ishlaringizni ko'rsatish uchun rasm, video yoki hujjat yuklang
@@ -636,10 +598,9 @@ export default function SpecialistHomePage() {
             </div>
           )}
         </div>
-
       </div>
 
       <ToastContainer />
-    </div >
+    </div>
   );
 }
