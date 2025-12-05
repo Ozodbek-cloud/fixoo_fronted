@@ -11,6 +11,7 @@ import HammerLoader from "../../components/HammerLoader";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import axios from "axios";
 import Image from "next/image";
+import StatusModal from "@/app/components/StatusModal";
 
 type FormData = {
   firstName: string;
@@ -39,6 +40,7 @@ export default function SpecialistHomePage() {
   const [userData, setUserData] = useState<FormData | null>(null);
   const [isAvailable, setIsAvailable] = useState(true);
   const [portfolioFiles, setPortfolioFiles] = useState<PortfolioFile[]>([]);
+  const [open, setOpen] = useState(false)
 
   const [isAvailabilityModalOpen, setIsAvailabilityModalOpen] = useState(false);
 
@@ -334,6 +336,8 @@ export default function SpecialistHomePage() {
                 Bandlikni to‘g‘irlash
               </button>
 
+            {/* Availability Toggle */}
+            {/* <div className="flex items-center space-x-3 bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
               <div className="flex items-center space-x-2">
                 <div
                   className={`w-3 h-3 rounded-full ${
@@ -344,6 +348,28 @@ export default function SpecialistHomePage() {
                   {isAvailable ? "Faolman" : "Band"}
                 </span>
               </div>
+              <button
+                onClick={toggleAvailability}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-300 focus:ring-offset-2 ${
+                  isAvailable ? "bg-green-500" : "bg-gray-400"
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out ${
+                    isAvailable ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div> */}
+            <div className="p-10">
+              <button
+                onClick={() => setOpen(true)}
+                className="px-4 py-3 rounded-2xl bg-green-400 hover:opacity-80 text-white font-bold transition-all duration-200"
+              >
+                Bandlikni Boshqarish
+              </button>
+
+              <StatusModal open={open} onClose={() => setOpen(false)} />
             </div>
 
 
@@ -487,7 +513,7 @@ export default function SpecialistHomePage() {
                 const isImage = file.fileType === "image";
                 const isVideo = file.fileType === "video";
                 const isPDF = file.fileType === "pdf";
-                
+
                 return (
                   <div
                     key={file.id || index}
@@ -610,9 +636,10 @@ export default function SpecialistHomePage() {
             </div>
           )}
         </div>
+
       </div>
 
       <ToastContainer />
-    </div>
+    </div >
   );
 }
