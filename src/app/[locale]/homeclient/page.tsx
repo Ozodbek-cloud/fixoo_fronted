@@ -90,6 +90,18 @@ export default function ClientHomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
+      <div className="fixed top-1/2 -translate-y-1/2 hidden lg:flex left-4 z-50">
+        <div className="w-[440px] h-[700px] bg-white shadow-lg rounded-xl p-4 flex items-center justify-center">
+          <span className="font-semibold text-gray-700">Reklama 1</span>
+        </div>
+      </div>
+      
+      <div className="fixed top-1/2 -translate-y-1/2 hidden lg:flex right-4 z-50">
+        <div className="w-[440px] h-[700px] bg-white shadow-lg rounded-xl p-4 flex items-center justify-center">
+          <span className="font-semibold text-gray-700">Reklama 2</span>
+        </div>
+      </div>
+
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Fixoo Branding */}
         <div className="text-center mb-12">
