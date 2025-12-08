@@ -53,11 +53,23 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 to-teal-100">
+      <div className='fixed flex z-50 justify-between items-center'>
+        <div className='fixed top-50 max-w-[250px] w-full left-2 bg-white rounded-2xl z-50 min-h-[650px] shadow-lg p-3 transition-transform              hover:scale-105 hover:shadow-2xl'>
+          <Image src='/orig.jpeg' width={250} height={280} alt='idk' className='rounded-2xl object-cover' />
+          <h1 className='text-lg font-semibold text-center mt-3'>Hiiiiii</h1>
+        </div>
+
+        <div className='fixed z-50 bottom-30 right-2 max-w-[250px] w-full bg-white rounded-2xl min-h-[650px] shadow-lg p-3 transition-transform    hover:scale-105 hover:shadow-2xl'>
+          <Image src='/2481.webp' width={250} height={280} alt='idk' className='rounded-2xl object-cover' />
+          <h1 className='text-lg font-semibold text-center mt-3'>Hiiiiii</h1>
+        </div>
+      </div>
+
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16">
-        <div ref={heroRef} className="grid md:grid-cols-2 gap-8 items-center mb-20 opacity-0 transform translate-y-10">
+      <div className="extra_container mx-auto px-4 py-16">
+        <div ref={heroRef} className="grid md:grid-cols-2    gap-5 items-center mb-20 opacity-0 transform translate-y-10">
           {/* Left side - Text */}
-          <div className="text-center md:text-left">
+          <div className="text-center pl-10  md:text-left">
             <div className="relative mb-8">
               <h1 className="text-4xl md:text-6xl lg:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-teal-700 to-teal-800 mb-8 leading-tight">
                 {t('hero_title')}
@@ -73,9 +85,9 @@ export default function LandingPage() {
               <div className="w-24 h-1 bg-gradient-to-r from-teal-500 to-teal-700 rounded-full"></div>
             </div>
           </div>
-          
+
           {/* Right side - Image */}
-          <div className="flex justify-center md:justify-end">
+          <div className="flex justify-center  md:justify-end">
             <div className="w-full max-w-lg">
               <Image
                 src="/images/fixoo-landing.png"
@@ -90,7 +102,7 @@ export default function LandingPage() {
         </div>
 
         {/* Features Section */}
-        <div ref={featuresRef} className="grid md:grid-cols-2 gap-8 mb-24 opacity-0 transform translate-y-10">
+        <div ref={featuresRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 mb-24 opacity-0 transform translate-y-10">
           <div className="group relative bg-gradient-to-br from-white to-teal-50/50 rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-teal-100/50 hover:border-teal-200">
             <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-teal-700/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative z-10">
@@ -123,11 +135,11 @@ export default function LandingPage() {
         </div>
 
         {/* Why Choose Us */}
-        <div ref={whyChooseRef} className="text-center mb-16 opacity-0 transform translate-y-10">
+        <div ref={whyChooseRef} className="text-center max-w-7xl mx-auto mb-16 opacity-0 transform translate-y-10">
           <h2 className="text-3xl md:text-4xl font-bold text-teal-800 mb-12">
             {t('why_choose_title')}
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid  md:grid-cols-3 gap-8">
             <div className="group text-center bg-white/80 backdrop-blur-sm rounded-2xl p-8 hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl border border-teal-100/50">
               <div className="w-24 h-24 bg-gradient-to-br from-teal-500 to-teal-700 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

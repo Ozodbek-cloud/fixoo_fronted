@@ -1,9 +1,11 @@
 export default function Main() {
     return (
       <main className="w-full pt-8 px-4 sm:px-9 py-12">
+        
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 md:gap-5">
           <div className="flex-1 w-full max-w-xl space-y-5 sm:space-y-6 text-center sm:text-left items-center sm:items-start flex flex-col">
             <h2 className="text-[#000] font-bold leading-tight text-[max(6vw,22px)] sm:text-[max(3.7vw,28px)]">
+              
               Qulaylik va sifat namunasi –{" "}
               <span className="text-[#2b7d78]">Fixoo</span>
             </h2>

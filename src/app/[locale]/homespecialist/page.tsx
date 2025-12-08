@@ -318,13 +318,13 @@ export default function SpecialistHomePage() {
             </div>
 
             <div className="flex items-center space-x-3">
-              <button
+              {/* <button
                 onClick={openAvailabilityModal}
                 // Haqiqiy tugma BG ni moslash uchun o'zgartirdim, chunki tashqi div oq rangda edi
                 className="bg-teal-500/20 backdrop-blur-sm px-4 py-2 rounded-lg text-teal-700 text-sm hover:bg-teal-500/30 transition font-medium"
               >
                 Bandlikni to‘g‘irlash
-              </button>
+              </button> */}
 
               <div className="p-10">
                 <button
@@ -339,8 +339,8 @@ export default function SpecialistHomePage() {
             </div>
           </div>
         </div>
-
-        {isAvailabilityModalOpen && (
+    
+        {/* {isAvailabilityModalOpen && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-xl p-6 w-72 space-y-4">
               <h2 className="text-lg font-semibold">Bandlikni to‘g‘irlash</h2>
@@ -372,7 +372,7 @@ export default function SpecialistHomePage() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Profile Information */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
