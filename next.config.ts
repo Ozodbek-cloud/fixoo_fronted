@@ -14,8 +14,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'fixoo-backend.onrender.com',
-        port: '', // agar standart 443 bo‘lsa bo‘sh qoldiring
-        pathname: '/image/**', // barcha image pathlariga ruxsat
+        pathname: '/uploads/**', // <-- to‘g‘ri yo‘l
       },
       {
         protocol: 'https',

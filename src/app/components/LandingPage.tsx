@@ -7,6 +7,7 @@ import Image from 'next/image';
 import axios from 'axios';
 interface addsInter {
   text : string,
+  photoUrl: any,
 }
 export default function LandingPage() {
   const router = useRouter();
@@ -16,9 +17,9 @@ export default function LandingPage() {
   const whyChooseRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const [adds, setAdds] = useState<addsInter[]>([]);
-   console.log(adds)
+   console.log("helloo", adds)
   useEffect(() => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkY2RmOTgxLWE5NjktNDNmMS1hM2UwLTExM2M2YThkOTM0ZSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTMwMDA1OSwiZXhwIjoxNzY3OTc4NDU5fQ.FNS1AZccDaX2svqn1zWzTRXwBxgHR9enk-2nlZv79V0"; 
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkY2RmOTgxLWE5NjktNDNmMS1hM2UwLTExM2M2YThkOTM0ZSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU0MjA3MCwiZXhwIjoxNzY4MjIwNDcwfQ.5vPEvRv5AV4hsAe6GvkzBPQu6vYgFu_8fM-jauUhAfA"; 
 
     axios.get("https://fixoo-backend.onrender.com/advert", {
       headers: {
@@ -75,13 +76,13 @@ export default function LandingPage() {
     <div className="min-h-screen bg-gradient-to-br from-teal-50 to-teal-100">
       <div className='fixed flex z-50 justify-between items-center'>
         <div className='fixed top-50 max-w-[250px] w-full left-2 bg-white rounded-2xl z-50 min-h-[650px] shadow-lg p-3 transition-transform              hover:scale-105 hover:shadow-2xl'>
-          <Image src='/orig.jpeg' width={250} height={280} alt='idk' className='rounded-2xl object-cover' />
-          <h1 className='text-lg font-semibold text-center mt-3'>{adds[0].text}</h1>
+          <Image src="https://fixoo-backend.onrender.com/uploads/advert/1765552989117-648721154.jpg" width={250} height={280} alt='idk' className='rounded-2xl object-cover' />
+          <h1 className='text-lg font-semibold text-center mt-3'>{adds[0]?.text}</h1>
         </div>
 
         <div className='fixed z-50 bottom-30 right-2 max-w-[250px] w-full bg-white rounded-2xl min-h-[650px] shadow-lg p-3 transition-transform    hover:scale-105 hover:shadow-2xl'>
           <Image src='/2481.webp' width={250} height={280} alt='idk' className='rounded-2xl object-cover' />
-          <h1 className='text-lg font-semibold text-center mt-3'>{adds[1].text}</h1>
+          <h1 className='text-lg font-semibold text-center mt-3'>{adds[1]?.text}</h1>
         </div>
       </div>
 
