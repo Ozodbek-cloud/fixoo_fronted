@@ -114,7 +114,6 @@ export default function SupportPage() {
               <div className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors shadow-sm">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                    {/* Admin icon SVG */}
                     <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
