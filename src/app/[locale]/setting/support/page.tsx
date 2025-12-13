@@ -133,7 +133,6 @@ export default function SupportPage() {
                   Adminga yozish
                 </a>
               </div>
-
             </div>
           </div>
         </div>
