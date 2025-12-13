@@ -94,7 +94,7 @@ export default function SupportPage() {
                   </div>
                   <h3 className="font-semibold text-gray-900">Telefon orqali</h3>
                 </div>
-                <p className="text-gray-600 text-sm">+998 90 123 45 67</p>
+                <p className="text-gray-600 text-sm"> +998 94 803 57 47</p>
                 <p className="text-gray-500 text-xs mt-1">9:00 - 18:00 (Dush-Juma)</p>
               </div>
 
@@ -111,6 +111,30 @@ export default function SupportPage() {
                 <p className="text-gray-600 text-sm">support@fixoo.uz</p>
                 <p className="text-gray-500 text-xs mt-1">24 soat ichida javob</p>
               </div>
+              <div className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors shadow-sm">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                    {/* Admin icon SVG */}
+                    <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 14l9-5-9-5-9 5 9 5zM12 14v7m0 0l-3-3m3 3l3-3"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold text-gray-900">Admin orqali</h3>
+                </div>
+                <p className="text-gray-500 text-xs mt-1">24 soat ichida javob</p>
+                <a href="https://t.me/fixoomessagebot" target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center justify-center gap-2 w-45 text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow-md hover:shadow-lg transition-all transform hover:scale-105"                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zM12 14v7m0 0l-3-3m3 3l3-3" />
+                  </svg>
+                  Adminga yozish
+                </a>
+              </div>
+
             </div>
           </div>
         </div>
@@ -143,9 +167,8 @@ export default function SupportPage() {
                   >
                     <span className="font-medium text-gray-900 text-left">{faq.question}</span>
                     <svg
-                      className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${
-                        expandedFAQ === index ? 'rotate-180' : ''
-                      }`}
+                      className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${expandedFAQ === index ? 'rotate-180' : ''
+                        }`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
