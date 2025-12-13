@@ -10,6 +10,7 @@ export default function HomePage() {
   const [showLoading, setShowLoading] = useState(false);
   const [showLanding, setShowLanding] = useState(false);
 
+
   useEffect(() => {
     // Check if user is already logged in
     const userData = localStorage.getItem('formData');

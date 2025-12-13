@@ -18,6 +18,21 @@ export default function LandingPage() {
   const whyChooseRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const [adds, setAdds] = useState<addsInter[]>([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const rol = localStorage.getItem("userRole");
+
+    if (token && rol === "MASTER") {
+      router.push("/homespecialist");
+    } else if (token && rol === 'USER') {
+      router.push("/homeclient");
+    }
+    else {
+      router.push("/");
+    }
+  }, [router]);
+
   useEffect(() => {
     const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkY2RmOTgxLWE5NjktNDNmMS1hM2UwLTExM2M2YThkOTM0ZSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU0MjA3MCwiZXhwIjoxNzY4MjIwNDcwfQ.5vPEvRv5AV4hsAe6GvkzBPQu6vYgFu_8fM-jauUhAfA";
 
