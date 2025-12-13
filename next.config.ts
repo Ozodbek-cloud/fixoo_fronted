@@ -21,6 +21,11 @@ const nextConfig: NextConfig = {
         hostname: 'ik-1.onrender.com',
         pathname: '/**',
       },
+        {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+        pathname: '/**',
+      },
     ],
   },
 };

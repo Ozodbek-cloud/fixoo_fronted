@@ -10,6 +10,7 @@ import { regions, getDistricts } from "../../lib/location-data";
 import HammerLoader from "../../components/HammerLoader";
 import PhoneInput from "../../components/PhoneInput";
 import axios from "axios";
+import Image from "next/image";
 
 type FormData = {
   firstName: string;
@@ -21,6 +22,11 @@ type FormData = {
   region: string;
   district: string;
 };
+interface addsInter {
+  text: string,
+  photoUrl: string,
+  serverLink: string
+}
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -31,6 +37,23 @@ export default function SettingsPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+  const [adds, setAdds] = useState<addsInter[]>([]);
+  useEffect(() => {
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkY2RmOTgxLWE5NjktNDNmMS1hM2UwLTExM2M2YThkOTM0ZSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU0MjA3MCwiZXhwIjoxNzY4MjIwNDcwfQ.5vPEvRv5AV4hsAe6GvkzBPQu6vYgFu_8fM-jauUhAfA";
+
+    axios.get("https://fixoo-backend.onrender.com/advert", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => {
+        setAdds(res.data);
+      })
+      .catch(err => {
+        console.log("Error:", err);
+      });
+  }, []);
 
   // Form data for editing
   const [formData, setFormData] = useState<FormData>({
@@ -228,15 +251,48 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="fixed top-1/2 -translate-y-1/2 hidden lg:flex left-4 z-50">
-        <div className="w-[440px] h-[700px] bg-white shadow-lg rounded-xl p-4 flex items-center justify-center">
-          <span className="font-semibold text-gray-700">Reklama 1</span>
+      <div onClick={() => router.push(adds[1].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex left-4 z-50">
+        <div className="w-[460px] h-[760px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+
+          {adds[1]?.photoUrl && (
+            <div className="relative w-full h-[480px]">
+              <Image
+                src={adds[1].photoUrl}
+                fill
+                alt="Reklama"
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            </div>
+          )}
+
+          <div className="flex-1 p-6 flex flex-col justify-between">
+            <p className="text-black text-center  relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
+              {adds[1]?.text}
+            </p>
+          </div>
+
         </div>
       </div>
 
-      <div className="fixed top-1/2 -translate-y-1/2 hidden lg:flex right-4 z-50">
-        <div className="w-[440px] h-[700px] bg-white shadow-lg rounded-xl p-4 flex items-center justify-center">
-          <span className="font-semibold text-gray-700">Reklama 2</span>
+
+
+      <div onClick={() => router.push(adds[0].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex right-4 z-50">
+        <div className="w-[460px] h-[760px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+          {adds[0]?.photoUrl && (
+            <div className="relative w-full h-[480px]">
+              <Image src={adds[0].photoUrl} fill alt="Reklama" className="object-cover" priority />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            </div>
+          )}
+
+          <div className="flex-1 p-6 flex flex-col justify-between">
+            <p className="text-black text-center relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
+              {adds[0]?.text || 'Reklama'}
+            </p>
+          </div>
+
         </div>
       </div>
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
@@ -363,8 +419,8 @@ export default function SettingsPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${userRole === "MASTER"
-                          ? "bg-teal-100 text-teal-800"
-                          : "bg-blue-100 text-blue-800"
+                        ? "bg-teal-100 text-teal-800"
+                        : "bg-blue-100 text-blue-800"
                         }`}
                     >
                       {userRole === "MASTER" ? "Usta" : "Mijoz"}

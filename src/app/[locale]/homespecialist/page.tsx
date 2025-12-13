@@ -12,6 +12,11 @@ import LoadingAnimation from "../../components/LoadingAnimation";
 import axios from "axios";
 import Image from "next/image";
 import StatusModal from "@/app/components/StatusModal";
+interface addsInter {
+  text: string,
+  photoUrl: string,
+  serverLink: string
+}
 
 type FormData = {
   firstName: string;
@@ -41,6 +46,25 @@ export default function SpecialistHomePage() {
   const [isAvailable, setIsAvailable] = useState(true);
   const [portfolioFiles, setPortfolioFiles] = useState<PortfolioFile[]>([]);
   const [open, setOpen] = useState(false);
+ 
+
+  const [adds, setAdds] = useState<addsInter[]>([]);
+  useEffect(() => {
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkY2RmOTgxLWE5NjktNDNmMS1hM2UwLTExM2M2YThkOTM0ZSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU0MjA3MCwiZXhwIjoxNzY4MjIwNDcwfQ.5vPEvRv5AV4hsAe6GvkzBPQu6vYgFu_8fM-jauUhAfA";
+
+    axios.get("https://fixoo-backend.onrender.com/advert", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => {
+        setAdds(res.data);
+      })
+      .catch(err => {
+        console.log("Error:", err);
+      });
+  }, []);
+
 
   const [isAvailabilityModalOpen, setIsAvailabilityModalOpen] = useState(false);
 
@@ -301,6 +325,52 @@ export default function SpecialistHomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-6">
+
+        <div onClick={() => router.push(adds[1].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex left-4 z-50">
+          <div className="w-[460px] h-[760px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+
+            {adds[1]?.photoUrl && (
+              <div className="relative w-full h-[480px]">
+                <Image
+                  src={adds[1].photoUrl}
+                  fill
+                  alt="Reklama"
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              </div>
+            )}
+
+            <div className="flex-1 p-6 flex flex-col justify-between">
+              <p className="text-black text-center  relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
+                {adds[1]?.text}
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+
+
+        <div onClick={() => router.push(adds[0].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex right-4 z-50">
+          <div className="w-[460px] h-[760px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+            {adds[0]?.photoUrl && (
+              <div className="relative w-full h-[480px]">
+                <Image src={adds[0].photoUrl} fill alt="Reklama" className="object-cover" priority />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              </div>
+            )}
+
+            <div className="flex-1 p-6 flex flex-col justify-between">
+              <p className="text-black text-center relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
+                {adds[0]?.text || 'Reklama'}
+              </p>
+            </div>
+
+          </div>
+        </div>
+
         {/* Welcome Header */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -339,7 +409,7 @@ export default function SpecialistHomePage() {
             </div>
           </div>
         </div>
-    
+
         {/* {isAvailabilityModalOpen && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-xl p-6 w-72 space-y-4">
@@ -471,7 +541,7 @@ export default function SpecialistHomePage() {
           {portfolioFiles.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {portfolioFiles.map((file, index) => {
-                const fileUrl = `https://fixoo-backend.onrender.com/${file.fileType}/${file.fileUrl}`;
+                const fileUrl = ``;
                 const isImage = file.fileType === "image";
                 const isVideo = file.fileType === "video";
                 const isPDF = file.fileType === "pdf";

@@ -7,7 +7,13 @@ import HammerLoader from "../../components/HammerLoader";
 import RatingModal from "../../components/RatingModal";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import Image from "next/image";
 // import 'react-toastify/dist/ReactToastify.css';
+interface addsInter {
+  text: string,
+  photoUrl: string,
+  serverLink: string
+}
 
 interface Order {
   id: string;
@@ -34,7 +40,24 @@ export default function OrdersPage() {
     clientName: "",
     orderToComplete: null as Order | null,
   });
-  
+
+  const [adds, setAdds] = useState<addsInter[]>([]);
+  useEffect(() => {
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkY2RmOTgxLWE5NjktNDNmMS1hM2UwLTExM2M2YThkOTM0ZSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU0MjA3MCwiZXhwIjoxNzY4MjIwNDcwfQ.5vPEvRv5AV4hsAe6GvkzBPQu6vYgFu_8fM-jauUhAfA";
+
+    axios.get("https://fixoo-backend.onrender.com/advert", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => {
+        setAdds(res.data);
+      })
+      .catch(err => {
+        console.log("Error:", err);
+      });
+  }, []);
+
 
 
   const totalOrders = orders.length;
@@ -213,7 +236,7 @@ export default function OrdersPage() {
         return status;
     }
   };
-  
+
   const newOrders = orders.filter((o) => o.status === "pending");
   const historyOrders = orders.filter((o) => o.status !== "pending");
 
@@ -226,6 +249,42 @@ export default function OrdersPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <div onClick={() => router.push(adds[1].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex right-4 z-50">
+        <div className="w-[350px] h-[760px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+          {adds[1]?.photoUrl && (
+            <div className="relative w-full h-[480px]">
+              <Image src={adds[1].photoUrl} fill alt="Reklama" className="object-cover" priority />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            </div>
+          )}
+
+          <div className="flex-1 p-6 flex flex-col justify-between">
+            <p className="text-black text-center relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
+              {adds[1]?.text || 'Reklama'}
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <div onClick={() => router.push(adds[0].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex left-4 z-50">
+        <div className="w-[350px] h-[760px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+
+          {adds[0]?.photoUrl && (
+            <div className="relative w-full h-[480px]">
+              <Image src={adds[0].photoUrl} fill alt="Reklama" className="object-cover" priority />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            </div>
+          )}
+
+          <div className="flex-1 p-6 flex flex-col justify-between">
+            <p className="text-black text-center  relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
+              {adds[0]?.text}
+            </p>
+          </div>
+
+        </div>
+      </div>
       <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Header */}
         <div className="mb-6">
@@ -243,11 +302,10 @@ export default function OrdersPage() {
             <div className="flex space-x-2">
               <button
                 onClick={() => setActiveTab("new")}
-                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-200 flex items-center justify-center space-x-2 ${
-                  activeTab === "new"
-                    ? "bg-teal-600 text-white shadow-lg"
-                    : "text-gray-600 hover:text-teal-600 hover:bg-gray-50"
-                }`}
+                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-200 flex items-center justify-center space-x-2 ${activeTab === "new"
+                  ? "bg-teal-600 text-white shadow-lg"
+                  : "text-gray-600 hover:text-teal-600 hover:bg-gray-50"
+                  }`}
               >
                 <svg
                   className="w-5 h-5"
@@ -265,11 +323,10 @@ export default function OrdersPage() {
                 <span>Yangi buyurtmalar</span>
                 {pendingCount > 0 && (
                   <span
-                    className={`ml-2 px-2 py-1 rounded-full text-xs font-bold ${
-                      activeTab === "new"
-                        ? "bg-white text-teal-600"
-                        : "bg-yellow-100 text-yellow-800"
-                    }`}
+                    className={`ml-2 px-2 py-1 rounded-full text-xs font-bold ${activeTab === "new"
+                      ? "bg-white text-teal-600"
+                      : "bg-yellow-100 text-yellow-800"
+                      }`}
                   >
                     {pendingCount}
                   </span>
@@ -277,11 +334,10 @@ export default function OrdersPage() {
               </button>
               <button
                 onClick={() => setActiveTab("history")}
-                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-200 flex items-center justify-center space-x-2 ${
-                  activeTab === "history"
-                    ? "bg-teal-600 text-white shadow-lg"
-                    : "text-gray-600 hover:text-teal-600 hover:bg-gray-50"
-                }`}
+                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-200 flex items-center justify-center space-x-2 ${activeTab === "history"
+                  ? "bg-teal-600 text-white shadow-lg"
+                  : "text-gray-600 hover:text-teal-600 hover:bg-gray-50"
+                  }`}
               >
                 <svg
                   className="w-5 h-5"
@@ -526,13 +582,12 @@ export default function OrdersPage() {
                 {historyOrders.map((order) => (
                   <div
                     key={order.id}
-                    className={`bg-white rounded-2xl shadow-lg p-6 border-l-4 ${
-                      order.status === "accepted"
-                        ? "border-blue-400"
-                        : order.status === "completed"
+                    className={`bg-white rounded-2xl shadow-lg p-6 border-l-4 ${order.status === "accepted"
+                      ? "border-blue-400"
+                      : order.status === "completed"
                         ? "border-green-400"
                         : "border-red-400"
-                    }`}
+                      }`}
                   >
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
                       <div className="flex items-center space-x-4 mb-4 lg:mb-0">

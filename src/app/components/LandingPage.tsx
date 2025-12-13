@@ -6,8 +6,9 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import axios from 'axios';
 interface addsInter {
-  text : string,
-  photoUrl: any,
+  text: string,
+  photoUrl: string,
+  serverLink: string
 }
 export default function LandingPage() {
   const router = useRouter();
@@ -17,9 +18,8 @@ export default function LandingPage() {
   const whyChooseRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const [adds, setAdds] = useState<addsInter[]>([]);
-   console.log("helloo", adds)
   useEffect(() => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkY2RmOTgxLWE5NjktNDNmMS1hM2UwLTExM2M2YThkOTM0ZSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU0MjA3MCwiZXhwIjoxNzY4MjIwNDcwfQ.5vPEvRv5AV4hsAe6GvkzBPQu6vYgFu_8fM-jauUhAfA"; 
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkY2RmOTgxLWE5NjktNDNmMS1hM2UwLTExM2M2YThkOTM0ZSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU0MjA3MCwiZXhwIjoxNzY4MjIwNDcwfQ.5vPEvRv5AV4hsAe6GvkzBPQu6vYgFu_8fM-jauUhAfA";
 
     axios.get("https://fixoo-backend.onrender.com/advert", {
       headers: {
@@ -74,17 +74,51 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 to-teal-100">
-      <div className='fixed flex z-50 justify-between items-center'>
-        <div className='fixed top-50 max-w-[250px] w-full left-2 bg-white rounded-2xl z-50 min-h-[650px] shadow-lg p-3 transition-transform              hover:scale-105 hover:shadow-2xl'>
-          <Image src="https://fixoo-backend.onrender.com/uploads/advert/1765552989117-648721154.jpg" width={250} height={280} alt='idk' className='rounded-2xl object-cover' />
-          <h1 className='text-lg font-semibold text-center mt-3'>{adds[0]?.text}</h1>
+      <div className="fixed inset-y-0 w-full pointer-events-none z-50 hidden lg:block">
+
+        <div className="pointer-events-auto fixed top-1/2 -translate-y-1/2 left-4">
+          <div onClick={() => router.push(adds[0]?.serverLink)} className="w-[260px] h-[550px] bg-white rounded-2xl shadow-xl overflow-hidden                transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"         >
+            <div className="absolute top-2 left-2 bg-yellow-400 text-xs font-semibold px-2 py-1 rounded-full z-10">
+              Reklama
+            </div>
+
+            {adds[0]?.photoUrl && (<Image src={adds[0].photoUrl} width={260} height={300} alt="reklama" className="object-cover w-full h-[300px]" />)}
+
+            <div className="p-4">
+              <h1 className="text-base font-semibold text-center text-gray-800 line-clamp-2">
+                {adds[0]?.text}
+              </h1>
+
+              <button className="mt-4 w-full bg-black text-white py-2 rounded-xl text-sm hover:bg-gray-800 transition">
+                Batafsil →
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div className='fixed z-50 bottom-30 right-2 max-w-[250px] w-full bg-white rounded-2xl min-h-[650px] shadow-lg p-3 transition-transform    hover:scale-105 hover:shadow-2xl'>
-          <Image src='/2481.webp' width={250} height={280} alt='idk' className='rounded-2xl object-cover' />
-          <h1 className='text-lg font-semibold text-center mt-3'>{adds[1]?.text}</h1>
+        <div className="pointer-events-auto fixed top-1/2 -translate-y-1/2 right-4">
+          <div onClick={() => router.push(adds[1]?.serverLink)} className="w-[260px] h-[550px] bg-white rounded-2xl shadow-xl overflow-hidden                transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"         >
+            <div className="absolute top-2 left-2 bg-yellow-400 text-xs font-semibold px-2 py-1 rounded-full z-10">
+              Reklama
+            </div>
+
+            {adds[1]?.photoUrl && (
+              <Image src={adds[1].photoUrl} width={260} height={300} alt="reklama" className="object-cover w-full h-[300px]" />
+            )}
+
+            <div className="p-4">
+              <h1 className="text-base font-semibold text-center text-gray-800 line-clamp-2">
+                {adds[1]?.text}
+              </h1>
+
+              <button className="mt-4 w-full bg-black text-white py-2 rounded-xl text-sm hover:bg-gray-800 transition">
+                Batafsil →
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+
 
       {/* Hero Section */}
       <div className="extra_container mx-auto px-4 py-16">
