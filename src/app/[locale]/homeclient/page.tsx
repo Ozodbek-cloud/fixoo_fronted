@@ -28,13 +28,8 @@ export default function ClientHomePage() {
 
   const [adds, setAdds] = useState<addsInter[]>([]);
   useEffect(() => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkY2RmOTgxLWE5NjktNDNmMS1hM2UwLTExM2M2YThkOTM0ZSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU0MjA3MCwiZXhwIjoxNzY4MjIwNDcwfQ.5vPEvRv5AV4hsAe6GvkzBPQu6vYgFu_8fM-jauUhAfA";
 
-    axios.get("https://fixoo-backend.onrender.com/advert", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    axios.get("https://fixoo-backend.onrender.com/advert")
       .then(res => {
         setAdds(res.data);
       })
@@ -152,7 +147,7 @@ export default function ClientHomePage() {
 
           <div className="flex-1 p-6 flex flex-col justify-between">
             <p className="text-black text-center relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
-              {adds[0]?.text || 'Reklama'}
+              {adds[0]?.text   || 'Reklama'}
             </p>
           </div>
 
