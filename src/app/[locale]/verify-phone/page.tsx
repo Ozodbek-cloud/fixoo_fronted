@@ -92,7 +92,7 @@ export default function VerifyPhonePage() {
     setIsLoading(true);
 
     const clearPhone = phoneNumber?.replace(/\s+/g, ""); 
-    console.log(clearPhone, purpose, verificationCode); 
+    console.log("er2", phoneNumber,"purpose",purpose); 
 
     try {
       // 1. Avval OTP ni tekshiramiz
@@ -100,7 +100,7 @@ export default function VerifyPhonePage() {
         "https://fixoo-backend.onrender.com/api/v1/verification/verify",
         {
           type: purpose,
-          phone: clearPhone,
+          phone: phoneNumber,  
           otp:verificationCode,
         }
       );
