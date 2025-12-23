@@ -10,7 +10,7 @@ interface HammerLoaderProps {
   showText?: boolean
 }
 
-export default function   HammerLoader({ 
+export default function HammerLoader({ 
   size = 60, 
   className = "", 
   fullScreen = false, 

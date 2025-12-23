@@ -28,8 +28,13 @@ export default function ClientHomePage() {
 
   const [adds, setAdds] = useState<addsInter[]>([]);
   useEffect(() => {
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkY2RmOTgxLWE5NjktNDNmMS1hM2UwLTExM2M2YThkOTM0ZSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NTU0MjA3MCwiZXhwIjoxNzY4MjIwNDcwfQ.5vPEvRv5AV4hsAe6GvkzBPQu6vYgFu_8fM-jauUhAfA";
 
-    axios.get("https://fixoo-backend.onrender.com/advert")
+    axios.get("https://fixoo-backend.onrender.com/advert", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(res => {
         setAdds(res.data);
       })
@@ -110,7 +115,7 @@ export default function ClientHomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
       <div onClick={() => router.push(adds[1].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex left-4 z-50">
-        <div className="w-[460px] h-[760px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        <div className="w-[350px] h-[680px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
 
           {adds[1]?.photoUrl && (
             <div className="relative w-full h-[480px]">
@@ -137,7 +142,7 @@ export default function ClientHomePage() {
 
 
       <div onClick={() => router.push(adds[0].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex right-4 z-50">
-        <div className="w-[460px] h-[760px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        <div className="w-[350px] h-[680px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
           {adds[0]?.photoUrl && (
             <div className="relative w-full h-[480px]">
               <Image src={adds[0].photoUrl} fill alt="Reklama" className="object-cover" priority />
@@ -147,7 +152,7 @@ export default function ClientHomePage() {
 
           <div className="flex-1 p-6 flex flex-col justify-between">
             <p className="text-black text-center relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
-              {adds[0]?.text   || 'Reklama'}
+              {adds[0]?.text || 'Reklama'}
             </p>
           </div>
 

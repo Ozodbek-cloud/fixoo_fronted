@@ -91,98 +91,50 @@ export default function LandingPage() {
     <div className="min-h-screen bg-gradient-to-br from-teal-50 to-teal-100">
       <div className="fixed inset-y-0 w-full pointer-events-none z-50 hidden lg:block">
 
-      <div className="pointer-events-auto fixed top-1/2 -translate-y-1/2 left-4">
-  <div
-    onClick={() => router.push(adds[0]?.serverLink)}
-    className="w-[260px] h-[550px] bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
-  >
-    {/* Reklama tagi */}
-    <div className="absolute top-2 left-2 bg-yellow-400 text-xs font-semibold px-2 py-1 rounded-full z-10">
-      Reklama
-    </div>
+        <div className="pointer-events-auto fixed top-1/2 -translate-y-1/2 left-4">
+          <div onClick={() => router.push(adds[0]?.serverLink)} className="w-[260px] h-[550px] bg-white rounded-2xl shadow-xl overflow-hidden                transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"         >
+            <div className="absolute top-2 left-2 bg-yellow-400 text-xs font-semibold px-2 py-1 rounded-full z-10">
+              Reklama
+            </div>
 
-    {/* Rasm */}
-    {adds[0]?.photoUrl && (
-      <Image
-        src={adds[0].photoUrl}
-        width={260}
-        height={300}
-        alt="reklama"
-        className="object-cover w-full h-[300px]"
-      />
-    )}
+            {adds[0]?.photoUrl && (<Image src={adds[0].photoUrl} width={260} height={300} alt="reklama" className="object-cover w-full h-[300px]" />)}
 
-    {/* Matn va button */}
-    <div className="p-4 flex flex-col justify-between h-[250px]">
-      <h1 className="text-base font-semibold text-center text-gray-800 line-clamp-2">
-        {adds[0]?.text}
-      </h1>
+            <div className="p-4">
+              <h1 className="text-base font-semibold text-center text-gray-800 line-clamp-2">
+                {adds[0]?.text}
+              </h1>
 
-      <button
-        onClick={(e) => {
-          e.stopPropagation(); // div click bilan chalg‘imasligi uchun
-          window.open("https://t.me/fixoomessagebot", "_blank");
-        }}
-        className="mt-4 w-full bg-black text-white py-2 rounded-xl text-sm hover:bg-gray-800 transition"
-      >
-        Reklama berish uchun → @fixoomessagebot
-      </button>
+              <button className="mt-4 w-full bg-black text-white py-2 rounded-xl text-sm hover:bg-gray-800 transition">
+                Batafsil →
+              </button>
+            </div>
+          </div>
+        </div>
 
-      <p className="text-xs text-gray-500 text-center mt-2">
-        O‘z brendingiz yoki saytingizni reklama qilish uchun shu botga murojaat qiling
-      </p>
-    </div>
-  </div>
-</div>
+        <div className="pointer-events-auto fixed top-1/2 -translate-y-1/2 right-4">
+          <div onClick={() => router.push(adds[1]?.serverLink)} className="w-[260px] h-[550px] bg-white rounded-2xl shadow-xl overflow-hidden                transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"         >
+            <div className="absolute top-2 left-2 bg-yellow-400 text-xs font-semibold px-2 py-1 rounded-full z-10">
+              Reklama
+            </div>
 
+            {adds[1]?.photoUrl && (
+              <Image src={adds[1].photoUrl} width={260} height={300} alt="reklama" className="object-cover w-full h-[300px]" />
+            )}
 
-<div className="pointer-events-auto fixed top-1/2 -translate-y-1/2 right-4">
-  <div
-    onClick={() => router.push(adds[1]?.serverLink)}
-    className="w-[260px] h-[550px] bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
-  >
-    {/* Reklama tagi */}
-    <div className="absolute top-2 left-2 bg-yellow-400 text-xs font-semibold px-2 py-1 rounded-full z-10">
-      Reklama
-    </div>
+            <div className="p-4">
+              <h1 className="text-base font-semibold text-center text-gray-800 line-clamp-2">
+                {adds[1]?.text}
+              </h1>
 
-    {/* Rasm */}
-    {adds[1]?.photoUrl && (
-      <Image
-        src={adds[1].photoUrl}
-        width={260}
-        height={300}
-        alt="reklama"
-        className="object-cover w-full h-[300px]"
-      />
-    )}
-
-    {/* Matn va button */}
-    <div className="p-4 flex flex-col justify-between h-[250px]">
-      <h1 className="text-base font-semibold text-center text-gray-800 line-clamp-2">
-        {adds[1]?.text}
-      </h1>
-
-      <button
-        onClick={(e) => {
-          e.stopPropagation(); // div click bilan chalg‘imasligi uchun
-          window.open("https://t.me/fixoomessagebot", "_blank");
-        }}
-        className="mt-4 w-full bg-black text-white py-2 rounded-xl text-sm hover:bg-gray-800 transition"
-      >
-        Reklama berish uchun → @fixoomessagebot
-      </button>
-
-      <p className="text-xs text-gray-500 text-center mt-2">
-        O‘z brendingiz yoki saytingizni reklama qilish uchun shu botga murojaat qiling
-      </p>
-    </div>
-  </div>
-</div>
-
+              <button className="mt-4 w-full bg-black text-white py-2 rounded-xl text-sm hover:bg-gray-800 transition">
+                Batafsil →
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
-
+            
       {/* Hero Section */}
       <div className="extra_container mx-auto px-4 py-16">
         <div ref={heroRef} className="grid md:grid-cols-2    gap-5 items-center mb-20 opacity-0 transform translate-y-10">

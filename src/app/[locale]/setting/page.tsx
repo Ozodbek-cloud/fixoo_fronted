@@ -252,7 +252,7 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div onClick={() => router.push(adds[1].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex left-4 z-50">
-        <div className="w-[460px] h-[760px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        <div className="w-[350px] h-[680px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
 
           {adds[1]?.photoUrl && (
             <div className="relative w-full h-[480px]">
@@ -279,7 +279,7 @@ export default function SettingsPage() {
 
 
       <div onClick={() => router.push(adds[0].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex right-4 z-50">
-        <div className="w-[460px] h-[760px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        <div className="w-[350px] h-[680px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
           {adds[0]?.photoUrl && (
             <div className="relative w-full h-[480px]">
               <Image src={adds[0].photoUrl} fill alt="Reklama" className="object-cover" priority />

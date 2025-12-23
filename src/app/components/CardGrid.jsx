@@ -1,11 +1,11 @@
 export default function CardGrid() {
   return (
     <>
-    <h1 className="text-3xl pt!-[3rem] sm:text-4xl font-bold text-[#2b7d78] text-center mb-8">
+    <h1 className="text-3xl pt-[3rem] sm:text-4xl font-bold text-[#2b7d78] text-center mb-8">
   Biz haqimizda
 </h1>
 
-    <section className="w-full px-4 sm:px-8 py-10 pt!-[3rem]">
+    <section className="w-full px-4 sm:px-8 py-10 pt-[3rem]">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Card 1 */}
         <div className="bg-white relative rounded-xl shadow-md border border-[#2b7d78] h-55 flex items-center justify-center">

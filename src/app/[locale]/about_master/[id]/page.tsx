@@ -147,8 +147,7 @@ function Page() {
       <div className="text-center p-4">
         <button
           onClick={() => router.back()}
-          className="text-gray-600 flex hover:text-teal-600 text-md transition duration-150"
-        >
+          className="text-gray-600 flex hover:text-teal-600 text-md transition duration-150">
           ← Orqaga qaytish
         </button>
       </div>
