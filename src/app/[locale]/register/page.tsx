@@ -138,7 +138,7 @@ export default function RegisterPage() {
     setIsLoading(true);
     try {
 
-      let phone  = "+"+formData.phone.trim().replace(/\D/g, '')
+      const phone  = "+"+formData.phone.trim().replace(/\D/g, '')
       console.log(phone);
       
       
