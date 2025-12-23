@@ -131,25 +131,30 @@ export default function RegisterPage() {
     }
 
     // Save form data temporarily for phone verification
-    const userDataWithRole = { ...formData, role }; // Add role to form data
+    const userDataWithRole = { ...formData, role ,phone:"+"+formData.phone.trim().replace(/\D/g, '')}; // Add role to form data
     localStorage.setItem("FormData", JSON.stringify(userDataWithRole));
     localStorage.setItem("userRole", role);
 
     setIsLoading(true);
     try {
+
+      let phone  = "+"+formData.phone.trim().replace(/\D/g, '')
+      console.log(phone);
+      
+      
       // Send verification code via API
       const sendOtp = await axios.post(
         "https://fixoo-backend.onrender.com/api/v1/verification/send",
         {
           type: "register",
-          phone: formData.phone,
+          phone,
         }
       );
 
       // Navigate to phone verification page
       router.push(
         `/verify-phone?phone=${encodeURIComponent(
-          formData.phone
+          phone
         )}&purpose=register`
       );
     } catch (error) {

@@ -326,8 +326,8 @@ export default function SpecialistHomePage() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-6">
 
-        <div onClick={() => router.push(adds[1].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex left-4 z-50">
-          <div className="w-[350px] h-[680px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        <div onClick={() => router.push(adds[1].serverLink ?? "")} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex left-4 z-50">
+          <div className="w-[260px] h-[490px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
 
             {adds[1]?.photoUrl && (
               <div className="relative w-full h-[480px]">
@@ -344,7 +344,23 @@ export default function SpecialistHomePage() {
 
             <div className="flex-1 p-6 flex flex-col justify-between">
               <p className="text-black text-center  relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
-                {adds[1]?.text}
+              {adds[1]?.text ? (
+  adds[1].text
+) : (
+  <>
+    Reklama qo'yish uchun{" "}
+    <a
+      href="https://t.me/fixoomessagebot"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-blue-600 "
+    >
+      @fixoomessagebot
+    </a>{" "}
+    ga murojaat qiling
+  </>
+)}
+
               </p>
             </div>
 
@@ -354,7 +370,7 @@ export default function SpecialistHomePage() {
 
 
         <div onClick={() => router.push(adds[0].serverLink)} className="fixed top-1/2 -translate-y-1/2 hidden lg:flex right-4 z-50">
-          <div className="w-[350px] h-[680px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+          <div className="w-[260px] h-[490px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
             {adds[0]?.photoUrl && (
               <div className="relative w-full h-[480px]">
                 <Image src={adds[0].photoUrl} fill alt="Reklama" className="object-cover" priority />
@@ -364,7 +380,23 @@ export default function SpecialistHomePage() {
 
             <div className="flex-1 p-6 flex flex-col justify-between">
               <p className="text-black text-center relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
-                {adds[0]?.text || 'Reklama'}
+              {adds[0]?.text ? (
+  adds[0].text
+) : (
+  <>
+    Reklama qo'yish uchun{" "}
+    <a
+      href="https://t.me/fixoomessagebot"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-blue-600 "
+    >
+      @fixoomessagebot
+    </a>{" "}
+    ga murojaat qiling
+  </>
+)}
+
               </p>
             </div>
 
