@@ -701,7 +701,6 @@ export default function SpecialistHomePage() {
           )}
         </div>
       </div>
-
       <ToastContainer />
     </div>
   );
