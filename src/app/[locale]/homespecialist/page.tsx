@@ -82,7 +82,6 @@ export default function SpecialistHomePage() {
         router.push("/");
         return;
       }
-
       const newAvailability = !isAvailable; // Modal ochilganda tanlangan qiymatga qarab, yangi holatni hisoblaymiz.
 
       if (!newAvailability) {
