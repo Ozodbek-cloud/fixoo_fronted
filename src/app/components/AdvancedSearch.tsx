@@ -11,6 +11,11 @@ import BookingModal from './BookingModal';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+type AdvancedSearchProps = {
+    onSearch: (filters: SearchFilters) => void
+};
+
+
 const mockMasters = [
     {
         id: 1,
@@ -106,7 +111,7 @@ export interface SearchFilters {
     district: string;
 }
 
-export default function AdvancedSearch() {
+export default function AdvancedSearch({ onSearch }: AdvancedSearchProps) {
     const t = useTranslations();
     const [searchType, setSearchType] = useState<'MASTER' | 'PRODUCT'>('MASTER');
     const [filters, setFilters] = useState({
@@ -131,7 +136,8 @@ export default function AdvancedSearch() {
             setHasSearched(false);
             return;
         }
-
+        onSearch(filters);
+        
         setIsSearching(true);
         setHasSearched(true);
 
