@@ -26,12 +26,12 @@ export default function LoginPage() {
     const handleComplete = () => {
       setIsLoading(false);
     };
-    return () => {};
+    return () => { };
   }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!phone || !password) {
       setError("Telefon raqam va parolni kiriting");
       return;
@@ -64,16 +64,11 @@ export default function LoginPage() {
         localStorage.setItem("justLoggedIn", "true");
         localStorage.setItem("userRole", user.data.data.role);
 
-        // Redirect
-        if (user.data.data.role === "MASTER") {
-          router.push("/homespecialist");
-        } else {
-          router.push("/homeclient");
-        }
+        // Redirect all to main home
+        router.push("/");
       } else {
         setError(
-          `${
-            role === "MASTER" ? "Usta" : "Mijoz"
+          `${role === "MASTER" ? "Usta" : "Mijoz"
           } sifatida telefon raqam yoki parol notogri`
         );
         setIsLoading(false);
@@ -141,11 +136,10 @@ export default function LoginPage() {
           <div className="flex mb-6 sm:mb-8 bg-gray-100 rounded-xl p-1">
             <button
               type="button"
-              className={`flex-1 py-3 font-medium rounded-lg transition-all duration-200 text-sm sm:text-base flex items-center justify-center gap-2 ${
-                role === "MASTER"
+              className={`flex-1 py-3 font-medium rounded-lg transition-all duration-200 text-sm sm:text-base flex items-center justify-center gap-2 ${role === "MASTER"
                   ? "bg-teal-600 text-white shadow-lg"
                   : "text-gray-600 hover:text-gray-800"
-              }`}
+                }`}
               onClick={() => setRole("MASTER")}
             >
               <svg
@@ -165,11 +159,10 @@ export default function LoginPage() {
             </button>
             <button
               type="button"
-              className={`flex-1 py-3 font-medium rounded-lg transition-all duration-200 text-sm sm:text-base flex items-center justify-center gap-2 ${
-                role === "USER"
+              className={`flex-1 py-3 font-medium rounded-lg transition-all duration-200 text-sm sm:text-base flex items-center justify-center gap-2 ${role === "USER"
                   ? "bg-teal-600 text-white shadow-lg"
                   : "text-gray-600 hover:text-gray-800"
-              }`}
+                }`}
               onClick={() => setRole("USER")}
             >
               <svg

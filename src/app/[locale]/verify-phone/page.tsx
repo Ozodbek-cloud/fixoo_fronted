@@ -91,8 +91,8 @@ export default function VerifyPhonePage() {
 
     setIsLoading(true);
 
-    const clearPhone = phoneNumber?.replace(/\s+/g, ""); 
-    console.log("er2", phoneNumber,"purpose",purpose); 
+    const clearPhone = phoneNumber?.replace(/\s+/g, "");
+    console.log("er2", phoneNumber, "purpose", purpose);
 
     try {
       // 1. Avval OTP ni tekshiramiz
@@ -100,19 +100,19 @@ export default function VerifyPhonePage() {
         "https://fixoo-backend.onrender.com/api/v1/verification/verify",
         {
           type: purpose,
-          phone: phoneNumber,  
-          otp:verificationCode,
+          phone: phoneNumber,
+          otp: verificationCode,
         }
       );
 
       console.log(verifyResponse.data.success)
-      
+
 
       if (verifyResponse.data.success) {
 
-        if(purpose =="reset_password"){
-          localStorage.setItem("code",verificationCode)
-          localStorage.setItem("phone",clearPhone ?? "")
+        if (purpose == "reset_password") {
+          localStorage.setItem("code", verificationCode)
+          localStorage.setItem("phone", clearPhone ?? "")
 
           router.push("/newpassword")
         }
@@ -131,9 +131,26 @@ export default function VerifyPhonePage() {
 
             try {
               if (userRole === "MASTER") {
+                const payload: any = {
+                  firstName: formData.firstName,
+                  lastName: formData.lastName,
+                  phone: formData.phone,
+                  password: formData.password,
+                  profession: formData.profession,
+                  add_address: formData.add_address,
+                  region: formData.region,
+                  district: formData.district,
+                  otp: verificationCode
+                };
+
+                if (formData.profession === "prorab") {
+                  payload.hasBrigade = formData.hasBrigade === "yes";
+                  payload.workTypes = formData.workTypes;
+                }
+
                 registerResponse = await axios.post(
                   "https://fixoo-backend.onrender.com/api/v1/auth/register",
-                  formData
+                  payload
                 );
               } else if (userRole === "USER") {
                 registerResponse = await axios.post(
@@ -163,11 +180,8 @@ export default function VerifyPhonePage() {
                 localStorage.setItem("justRegistered", "true");
                 localStorage.removeItem("FormData");
 
-                if (userRole === "MASTER") {
-                  router.push("/homespecialist");
-                } else {
-                  router.push("/homeclient");
-                }
+                // Redirect all to main home
+                router.push("/");
               } else {
                 setError(
                   registerResponse?.data?.message || "Ro'yxatdan o'tishda xatolik"
@@ -176,7 +190,7 @@ export default function VerifyPhonePage() {
             } catch (registrationError: any) {
               console.error("Registration error:", registrationError);
               console.log(registrationError);
-              
+
               setError(
                 registrationError.response?.data?.message ||
                 "Ro'yxatdan o'tishda xatolik yuz berdi"
@@ -218,7 +232,7 @@ export default function VerifyPhonePage() {
     setCode(["", "", "", "", "", ""]); // Clear kod inputlarini
 
     try {
-    const clearPhone = phoneNumber?.replace(/\s+/g, "");
+      const clearPhone = phoneNumber?.replace(/\s+/g, "");
 
       await axios.post("https://fixoo-backend.onrender.com/api/v1/verification/send", {
         type: purpose,

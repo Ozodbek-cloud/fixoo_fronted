@@ -1,4 +1,5 @@
 'use client';
+// Triggering rebuild to fix stale Footer.jsx reference
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -12,22 +13,9 @@ export default function HomePage() {
 
 
   useEffect(() => {
-    // Check if user is already logged in
-    const userData = localStorage.getItem('formData');
-    const role = localStorage.getItem('userRole');
-
-    if (userData && role) {
-      // User is logged in, redirect based on role
-      if (role === 'specialist') {
-        router.replace('/homespecialist');
-      } else {
-        router.replace('/homeclient'); // Clients go to their home page when logged in
-      }
-    } else {
-      // Always show Fixoo text animation when entering the platform
-      setShowLoading(true);
-    }
-  }, [router]);
+    // Always show Fixoo text animation when entering the platform
+    setShowLoading(true);
+  }, []);
 
   const handleLoadingComplete = () => {
     setShowLoading(false);

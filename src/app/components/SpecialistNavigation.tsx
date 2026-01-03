@@ -15,7 +15,7 @@ const SpecialistNavigation = () => {
     {
       key: "home",
       label: t("navigation.home"),
-      path: "/homespecialist",
+      path: "/",
       icon: (
         <svg
           className="w-5 h-5"
@@ -142,11 +142,10 @@ const SpecialistNavigation = () => {
                 <button
                   key={item.key}
                   onClick={() => handleNavigation(item.path)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    isActive(item.path)
-                      ? "bg-teal-600 text-white shadow-md"
-                      : "text-teal-100 hover:bg-teal-600 hover:text-white"
-                  }`}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive(item.path)
+                    ? "bg-teal-600 text-white shadow-md"
+                    : "text-teal-100 hover:bg-teal-600 hover:text-white"
+                    }`}
                 >
                   {item.icon}
                   {item.label}
@@ -188,11 +187,10 @@ const SpecialistNavigation = () => {
             <button
               key={item.key}
               onClick={() => handleNavigation(item.path)}
-              className={`flex flex-col items-center justify-center space-y-1 transition-all duration-200 ${
-                isActive(item.path)
-                  ? "text-white bg-teal-700"
-                  : "text-teal-100 hover:text-white hover:bg-teal-700"
-              }`}
+              className={`flex flex-col items-center justify-center space-y-1 transition-all duration-200 ${isActive(item.path)
+                ? "text-white bg-teal-700"
+                : "text-teal-100 hover:text-white hover:bg-teal-700"
+                }`}
             >
               {item.icon}
               <span className="text-xs font-medium truncate px-1">

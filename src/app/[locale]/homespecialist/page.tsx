@@ -46,7 +46,7 @@ export default function SpecialistHomePage() {
   const [isAvailable, setIsAvailable] = useState(true);
   const [portfolioFiles, setPortfolioFiles] = useState<PortfolioFile[]>([]);
   const [open, setOpen] = useState(false);
- 
+
 
   const [adds, setAdds] = useState<addsInter[]>([]);
   useEffect(() => {
@@ -343,22 +343,22 @@ export default function SpecialistHomePage() {
 
             <div className="flex-1 p-6 flex flex-col justify-between">
               <p className="text-black text-center  relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
-              {adds[1]?.text ? (
-  adds[1].text
-) : (
-  <>
-    Reklama qo'yish uchun{" "}
-    <a
-      href="https://t.me/fixoomessagebot"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-blue-600 "
-    >
-      @fixoomessagebot
-    </a>{" "}
-    ga murojaat qiling
-  </>
-)}
+                {adds[1]?.text ? (
+                  adds[1].text
+                ) : (
+                  <>
+                    Reklama qo'yish uchun{" "}
+                    <a
+                      href="https://t.me/fixoomessagebot"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 "
+                    >
+                      @fixoomessagebot
+                    </a>{" "}
+                    ga murojaat qiling
+                  </>
+                )}
 
               </p>
             </div>
@@ -379,22 +379,22 @@ export default function SpecialistHomePage() {
 
             <div className="flex-1 p-6 flex flex-col justify-between">
               <p className="text-black text-center relative z-10 text-xl font-bold leading-snug drop-shadow-lg">
-              {adds[0]?.text ? (
-  adds[0].text
-) : (
-  <>
-    Reklama qo'yish uchun{" "}
-    <a
-      href="https://t.me/fixoomessagebot"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-blue-600 "
-    >
-      @fixoomessagebot
-    </a>{" "}
-    ga murojaat qiling
-  </>
-)}
+                {adds[0]?.text ? (
+                  adds[0].text
+                ) : (
+                  <>
+                    Reklama qo'yish uchun{" "}
+                    <a
+                      href="https://t.me/fixoomessagebot"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 "
+                    >
+                      @fixoomessagebot
+                    </a>{" "}
+                    ga murojaat qiling
+                  </>
+                )}
 
               </p>
             </div>
@@ -435,7 +435,7 @@ export default function SpecialistHomePage() {
                   Bandlikni Boshqarish
                 </button>
 
-                <StatusModal open={open} onClose={() => setOpen(false)} />
+                <StatusModal isOpen={open} onClose={() => setOpen(false)} />
               </div>
             </div>
           </div>

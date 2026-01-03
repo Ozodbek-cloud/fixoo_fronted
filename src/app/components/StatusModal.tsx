@@ -4,11 +4,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 interface StatusModalProps {
-    open: boolean;
+    isOpen: boolean;
     onClose: () => void;
+    onStatusChange?: (status: boolean) => void;
 }
 
-const StatusModal: React.FC<StatusModalProps> = ({ open, onClose }) => {
+const StatusModal: React.FC<StatusModalProps> = ({ isOpen: open, onClose, onStatusChange }) => {
     const [mode, setMode] = useState<"online" | "busy">("online");
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
@@ -44,6 +45,7 @@ const StatusModal: React.FC<StatusModalProps> = ({ open, onClose }) => {
             }
 
             onClose();
+            if (onStatusChange) onStatusChange(mode === "online");
             setSuccessModal(true);
             setTimeout(() => setSuccessModal(false), 2500);
 

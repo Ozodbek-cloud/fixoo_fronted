@@ -24,7 +24,7 @@ const countries: Country[] = [
     maxDigits: 9
   },
   {
-    code: "KG", 
+    code: "KG",
     name: "Qirg'iziston",
     prefix: "+996",
     flag: "/images/languages/kirgizz.png",
@@ -34,7 +34,7 @@ const countries: Country[] = [
   },
   {
     code: "RU",
-    name: "Rossiya", 
+    name: "Rossiya",
     prefix: "+7",
     flag: "/images/languages/russia.png",
     format: "### ### ## ##",
@@ -45,7 +45,7 @@ const countries: Country[] = [
     code: "KZ",
     name: "Qozog'iston",
     prefix: "+7",
-    flag: "/images/languages/kazak.png", 
+    flag: "/images/languages/kazak.png",
     format: "### ### ## ##",
     placeholder: "701 123 45 67",
     maxDigits: 10
@@ -62,9 +62,9 @@ interface PhoneInputProps {
   initialCountry?: string;
 }
 
-export default function PhoneInput({ 
-  value, 
-  onChange, 
+export default function PhoneInput({
+  value,
+  onChange,
   placeholder,
   required = false,
   className = "",
@@ -116,11 +116,11 @@ export default function PhoneInput({
   const formatPhoneNumber = (input: string, format: string, maxDigits: number) => {
     // Remove all non-digits
     const digits = input.replace(/\D/g, '').substring(0, maxDigits);
-    
+
     // Apply format
     let formatted = '';
     let digitIndex = 0;
-    
+
     for (let i = 0; i < format.length && digitIndex < digits.length; i++) {
       if (format[i] === '#') {
         formatted += digits[digitIndex];
@@ -129,21 +129,21 @@ export default function PhoneInput({
         formatted += format[i];
       }
     }
-    
+
     return formatted;
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let input = e.target.value;
-    
+
     // Remove any prefix that might have been pasted
     if (input.startsWith(selectedCountry.prefix)) {
       input = input.substring(selectedCountry.prefix.length).trim();
     }
-    
+
     const formatted = formatPhoneNumber(input, selectedCountry.format, selectedCountry.maxDigits);
     setPhoneNumber(formatted);
-    
+
     // Always send the full formatted number with prefix
     if (formatted.trim()) {
       onChange(`${selectedCountry.prefix} ${formatted}`);
@@ -155,12 +155,12 @@ export default function PhoneInput({
   const handleCountrySelect = (country: Country) => {
     setSelectedCountry(country);
     setIsDropdownOpen(false);
-    
+
     // Extract only digits from current phone number and reformat for new country
     const digitsOnly = phoneNumber.replace(/\D/g, '');
     const formatted = formatPhoneNumber(digitsOnly, country.format, country.maxDigits);
     setPhoneNumber(formatted);
-    
+
     if (formatted.trim()) {
       onChange(`${country.prefix} ${formatted}`);
     } else {
@@ -168,14 +168,14 @@ export default function PhoneInput({
     }
   };
 
-      return (
+  return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-gray-700">
         Telefon raqami {required && <span className="text-red-500">*</span>}
       </label>
       <div className="relative">
         <div className={`w-full bg-gray-50 border-0 rounded-xl p-3 sm:py-4 text-gray-900 focus-within:bg-white focus-within:ring-2 focus-within:ring-teal-500 transition-all duration-200 shadow-md focus-within:shadow-lg flex items-center gap-2 ${error ? 'ring-2 ring-red-500 bg-red-50' : ''} ${className}`}>
-          
+
           {/* Country Selector */}
           <div className="relative" ref={dropdownRef}>
             <button
@@ -245,21 +245,6 @@ export default function PhoneInput({
             required={required}
             inputMode="numeric"
           />
-
-          {/* Phone Icon */}
-          <svg
-            className="w-5 h-5 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
         </div>
       </div>
     </div>
