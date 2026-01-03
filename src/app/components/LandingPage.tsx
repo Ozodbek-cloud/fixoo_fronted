@@ -139,10 +139,13 @@ export default function LandingPage() {
 
             {isBookingOpen && selectedMaster && (
                 <BookingModal
-                    master={selectedMaster}
+                    isOpen={isBookingOpen}
+                    masterId={Number(selectedMaster.id)}
+                    masterName={selectedMaster.firstName}
                     onClose={() => setIsBookingOpen(false)}
                 />
             )}
+
 
             <style jsx global>{`
         @keyframes fadeInUp {
