@@ -8,7 +8,7 @@ import LangSwitch from "../../components/LangSwitch";
 import PhoneInput from "../../components/PhoneInput";
 import axios from "axios";
 
-type UserRole = "MASTER" | "USER";
+type UserRole = "MASTER" | "USER" | "SHOP";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -21,6 +21,10 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const cleanPhone = phone.replace(/\s+/g, "");
+  const [shopName, setShopName] = useState("");
+  const [shopPhone, setShopPhone] = useState("");
+  const [shopInn, setShopInn] = useState("");
+
 
   useEffect(() => {
     const handleComplete = () => {
@@ -126,9 +130,7 @@ export default function LoginPage() {
               Kirish
             </h1>
             <p className="text-gray-500 text-base sm:text-lg">
-              {role === "MASTER"
-                ? "Usta sifatida kirish"
-                : "Mijoz sifatida kirish"}
+              {role === "MASTER" ? "Usta sifatida kirish" : role === "USER" ? "Mijoz sifatida kirish" : "Dokonchi sifatida kirish"}
             </p>
           </div>
 
@@ -137,8 +139,8 @@ export default function LoginPage() {
             <button
               type="button"
               className={`flex-1 py-3 font-medium rounded-lg transition-all duration-200 text-sm sm:text-base flex items-center justify-center gap-2 ${role === "MASTER"
-                  ? "bg-teal-600 text-white shadow-lg"
-                  : "text-gray-600 hover:text-gray-800"
+                ? "bg-teal-600 text-white shadow-lg"
+                : "text-gray-600 hover:text-gray-800"
                 }`}
               onClick={() => setRole("MASTER")}
             >
@@ -160,8 +162,8 @@ export default function LoginPage() {
             <button
               type="button"
               className={`flex-1 py-3 font-medium rounded-lg transition-all duration-200 text-sm sm:text-base flex items-center justify-center gap-2 ${role === "USER"
-                  ? "bg-teal-600 text-white shadow-lg"
-                  : "text-gray-600 hover:text-gray-800"
+                ? "bg-teal-600 text-white shadow-lg"
+                : "text-gray-600 hover:text-gray-800"
                 }`}
               onClick={() => setRole("USER")}
             >
@@ -180,91 +182,272 @@ export default function LoginPage() {
               </svg>
               Mijoz
             </button>
+            <button
+              type="button"
+              className={`flex-1 py-3 font-medium rounded-lg transition-all duration-200 text-sm sm:text-base flex items-center justify-center gap-2 ${role === "SHOP"
+                ? "bg-teal-600 text-white shadow-lg"
+                : "text-gray-600 hover:text-gray-800"
+                }`}
+              onClick={() => setRole("SHOP")}
+            >
+              <svg
+                className="w-4 h-4 sm:w-5 sm:h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+              Dokon
+            </button>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4 sm:space-y-6">
-            {/* Phone Number */}
-            <PhoneInput value={phone} onChange={setPhone} required />
 
-            {/* Password */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">
-                {t("password")} <span className="text-red-500">*</span>
-              </label>
-              <div className="relative">
+            {role === "MASTER" ? (
+              <div className="space-y-4 sm:space-y-6">
+                <PhoneInput value={phone} onChange={setPhone} required />
+
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t("password")} <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="••••••••"
+                      className="w-full bg-gray-50 border-0 rounded-xl p-3 sm:py-4 pl-10 pr-12 text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all duration-200 shadow-md focus:shadow-lg"
+                      required
+                    />
+                    <svg
+                      className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                      />
+                    </svg>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+                    >
+                      {showPassword ? (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : role === "USER" ? (
+              <div className="space-y-4 sm:space-y-6"><PhoneInput value={phone} onChange={setPhone} required />
+
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t("password")} <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="••••••••"
+                      className="w-full bg-gray-50 border-0 rounded-xl p-3 sm:py-4 pl-10 pr-12 text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all duration-200 shadow-md focus:shadow-lg"
+                      required
+                    />
+                    <svg
+                      className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                      />
+                    </svg>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+                    >
+                      {showPassword ? (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            ) : (
+              <div className="space-y-4 sm:space-y-6">
+                 <p className="text-sm font-medium text-gray-700">Dokon Nomi</p>
                 <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full bg-gray-50 border-0 rounded-xl p-3 sm:py-4 pl-10 pr-12 text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all duration-200 shadow-md focus:shadow-lg"
+                type="text"
+                  placeholder="Karzinka"
+                  className="w-full bg-gray-50 border-0 rounded-xl p-3 sm:py-4  pr-12 text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all duration-200 shadow-md focus:shadow-lg"
                   required
                 />
-                <svg
-                  className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                  />
-                </svg>
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
-                >
-                  {showPassword ? (
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                      />
-                    </svg>
-                  )}
-                </button>
-              </div>
-            </div>
 
-            {/* Error Message */}
+                <PhoneInput value={phone} onChange={setPhone} required />
+
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t("password")} <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="••••••••"
+                      className="w-full bg-gray-50 border-0 rounded-xl p-3 sm:py-4 pl-10 pr-12 text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-2 focus:ring-teal-500 focus:outline-none transition-all duration-200 shadow-md focus:shadow-lg"
+                      required
+                    />
+                    <svg
+                      className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                      />
+                    </svg>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+                    >
+                      {showPassword ? (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+
             {error && (
               <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded-xl text-sm">
                 {error}
               </div>
             )}
 
-            {/* Login Button */}
             <button
               type="submit"
               disabled={isLoading}
@@ -273,7 +456,6 @@ export default function LoginPage() {
               {isLoading ? "Kirish..." : "Kirish"}
             </button>
 
-            {/* Forgot Password Link */}
             <div className="text-center">
               <button
                 type="button"
@@ -297,7 +479,6 @@ export default function LoginPage() {
               </button>
             </div>
 
-            {/* Register Link */}
             <div className="text-center pt-4 border-t border-gray-200">
               <p className="text-gray-600 text-sm sm:text-base">
                 Hisobingiz yo'qmi?{" "}
@@ -326,6 +507,7 @@ export default function LoginPage() {
           </form>
         </div>
       </div>
+
     </div>
   );
 }

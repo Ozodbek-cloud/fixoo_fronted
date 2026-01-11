@@ -46,6 +46,12 @@ export default function ShopRegistrationForm() {
         }
     };
 
+    const handleFileChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setFormData(prev => ({ ...prev, logo: e.target.files![0].name }))
+        }
+    }
+
     const handleNext = () => {
         if (step === 1) {
             if (!formData.shopName || !formData.category || !formData.region || !formData.district || !formData.phone || !formData.password || !formData.confirmPassword || !formData.logo) {
@@ -155,16 +161,15 @@ export default function ShopRegistrationForm() {
 
                             <div className="relative group sm:col-span-2">
                                 <label className="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">
-                                    Do'kon logotipi (URL) <span className="text-red-500">*</span>
+                                    Do'kon logotipi <span className="text-red-500">*</span>
                                 </label>
                                 <div className="relative">
                                     <input
-                                        type="text"
+                                        type="file"
                                         name="logo"
-                                        value={formData.logo}
-                                        onChange={handleChange}
+                                        onChange={handleFileChange1}
                                         className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all outline-none shadow-md focus:shadow-lg"
-                                        placeholder="https://images.unsplash.com/..."
+                                        placeholder="image.png"
                                         required
                                     />
                                 </div>
@@ -293,6 +298,8 @@ export default function ShopRegistrationForm() {
                             Keyingi qadam
                             <ChevronRight size={24} />
                         </button>
+
+                        <p></p>
                     </div>
                 )}
 
