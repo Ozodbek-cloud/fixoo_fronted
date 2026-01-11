@@ -24,10 +24,10 @@ export default function Marketplace() {
         setSelectedProduct(null);
     };
 
-    const filteredProducts = mockProducts.filter(p =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.shop.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    // const filteredProducts = mockProducts.filter(p =>
+    //     p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //     p.shop.toLowerCase().includes(searchQuery.toLowerCase())
+    // );
 
     return (
         <div className="min-h-screen bg-gray-50 pb-20 lg:pb-0">
@@ -55,84 +55,6 @@ export default function Marketplace() {
                     </div>
                 </div>
 
-                {/* Products Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    {filteredProducts.map((product) => (
-                        <div key={product.id} className="bg-white rounded-3xl p-4 shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 flex flex-col">
-                            {/* Image Container */}
-                            <div
-                                className="relative aspect-square mb-4 bg-gray-50 rounded-2xl overflow-hidden cursor-pointer"
-                                onClick={() => setSelectedProduct(product)}
-                            >
-                                <Image
-                                    src={product.image}
-                                    alt={product.name}
-                                    fill
-                                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                                />
-                                <button className="absolute top-3 right-3 p-2.5 rounded-full bg-white/80 backdrop-blur-md shadow-md text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 duration-300">
-                                    <Heart size={20} />
-                                </button>
-                                <div className="absolute bottom-3 left-3 bg-teal-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow-lg">
-                                    TOP SOTUV
-                                </div>
-                            </div>
-
-                            {/* Info */}
-                            <div className="flex-1 flex flex-col">
-                                <div className="flex items-center gap-1 mb-2">
-                                    <Star size={14} className="text-yellow-400 fill-yellow-400" />
-                                    <span className="text-sm font-bold text-gray-900">{product.rating}</span>
-                                    <span className="text-xs text-gray-500">({product.reviews})</span>
-                                </div>
-
-                                <h3
-                                    className="font-bold text-gray-900 mb-1 group-hover:text-teal-600 transition-colors line-clamp-2 min-h-[3rem] cursor-pointer"
-                                    onClick={() => setSelectedProduct(product)}
-                                >
-                                    {product.name}
-                                </h3>
-
-                                <div className="space-y-1.5 mb-4">
-                                    <div className="flex items-center gap-1.5 text-xs text-gray-500">
-                                        <Store size={14} className="text-teal-600" />
-                                        <span className="font-medium">{product.shop}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5 text-xs text-gray-500">
-                                        <MapPin size={14} className="text-gray-400" />
-                                        <span>{product.region}</span>
-                                    </div>
-                                </div>
-
-                                <div className="mt-auto">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <div className="flex flex-col">
-                                            <span className="text-xs text-gray-400 line-through">1,500,000 so'm</span>
-                                            <span className="text-xl font-extrabold text-teal-600">{product.price} <span className="text-xs">so'm</span></span>
-                                        </div>
-                                        <button className="p-3 rounded-2xl bg-[#2b7d78] text-white hover:bg-teal-700 transition-all duration-300 shadow-lg hover:shadow-teal-600/20">
-                                            <ShoppingCart size={20} />
-                                        </button>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-2">
-                                        <button
-                                            onClick={() => toast.success("Savatga qo'shildi")}
-                                            className="py-2.5 text-xs font-bold text-gray-600 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
-                                        >
-                                            Savatga qo'shish
-                                        </button>
-                                        <button
-                                            onClick={() => handlePurchase(product)}
-                                            className="py-2.5 text-xs font-bold text-white bg-teal-600 rounded-xl hover:bg-teal-700 transition-colors"
-                                        >
-                                            Sotib olish
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
             </main>
 
             {/* Product Detail Modal */}
