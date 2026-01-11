@@ -8,14 +8,7 @@ import { ShoppingCart, Heart, Star, MapPin, Store, Search, X, CheckCircle2, Shop
 import Image from 'next/image';
 import { toast, ToastContainer } from 'react-toastify';
 
-const mockProducts = [
-    { id: 1, name: 'Makita DHP482Z', price: '1,200,000', rating: 4.8, reviews: 124, image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=1000&auto=format&fit=crop', shop: 'Asboblar Olami', region: 'Toshkent', description: 'Professional zarbali drel-shurupovert. 18V LXT Li-ion batareyasi bilan ishlaydi.', sizes: ['Standart'] },
-    { id: 2, name: 'Bosch GWS 9-115', price: '850,000', rating: 4.9, reviews: 89, image: 'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?q=80&w=1000&auto=format&fit=crop', shop: 'Stroy Market', region: 'Samarqand', description: 'Ixcham va kuchli burchakli silliqlash mashinasi (bolgarka).', sizes: ['115mm', '125mm'] },
-    { id: 3, name: 'Karcher WD 3', price: '1,500,000', rating: 4.7, reviews: 210, image: 'https://images.unsplash.com/photo-1558317374-067fb5f30001?q=80&w=1000&auto=format&fit=crop', shop: 'Premium Tools', region: 'Namangan', description: 'Ko\'p funksiyali xo\'jalik changyutgichi. Nam va quruq tozalash uchun.', sizes: ['17L', '20L'] },
-    { id: 4, name: 'Stanley FatMax', price: '450,000', rating: 4.6, reviews: 56, image: 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?q=80&w=1000&auto=format&fit=crop', shop: 'Usta Do\'kon', region: 'Buxoro', description: 'Yuqori sifatli o\'lchov lentasi (ruletka). 8 metr uzunlikda.', sizes: ['5m', '8m', '10m'] },
-    { id: 5, name: 'DeWalt DCD771C2', price: '1,800,000', rating: 4.9, reviews: 342, image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=1000&auto=format&fit=crop', shop: 'Pro Tools', region: 'Toshkent', description: 'Kuchli va ixcham drel-shurupovert. Ikki tezlikli uzatmalar qutisi.', sizes: ['Standart'] },
-    { id: 6, name: 'Hilti TE 30', price: '4,500,000', rating: 5.0, reviews: 15, image: 'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?q=80&w=1000&auto=format&fit=crop', shop: 'Hilti Center', region: 'Toshkent', description: 'Professional perforator. Yuqori unumdorlik va chidamlilik.', sizes: ['SDS-Plus'] },
-];
+
 
 export default function Marketplace() {
     const t = useTranslations();
