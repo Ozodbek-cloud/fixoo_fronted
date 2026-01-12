@@ -120,7 +120,7 @@ export default function Navbar({ onViewChange }: { onViewChange?: (view: string)
                 {/* Desktop Menu */}
                 <nav className="hidden lg:flex items-center space-x-6">
                     {navLinks.map((link) => (
-                        <Link key={link.href} href={link.href} className="text-sm p-2 rounded-2xl font-medium hover:bg-white text-teal-200 transition-colors duration-500 flex items-center gap-2">
+                        <Link key={link.href} href={link.href} className="text-sm p-2 rounded-2xl font-medium   hover:text-teal-200 transition-colors  flex items-center gap-2">
                             {link.icon}
                             {link.label}
                         </Link>
