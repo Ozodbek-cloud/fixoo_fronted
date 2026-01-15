@@ -30,7 +30,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <head>
         {/* Google Analytics (GA4) */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-VN16M7CSES"
+          src="https://www.googletagmanager.com/gtag/js?id=G-RFCYPR7XMJ"
           strategy="afterInteractive"
         />
         <Script id="ga-script" strategy="afterInteractive">
@@ -38,7 +38,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-VN16M7CSES');
+            gtag('config', 'G-RFCYPR7XMJ');
           `}
         </Script>
       </head>
