@@ -376,6 +376,7 @@ export default function RegisterPage() {
                         </svg>
                       )}
                     </button>
+                    
                   </div>
                 </div>
               </div>
@@ -562,12 +563,12 @@ export default function RegisterPage() {
 
           {/* Login Link */}
           <div className="text-center mt-6">
-            <p className="text-sm text-white/90">
+            <p className="text-sm text-teal-600 ">
               {t("already_have_account")}{" "}
               <button
                 type="button"
                 onClick={() => router.push("/login")}
-                className="text-white font-bold hover:underline"
+                className="text-teal-400 cursor-pointer font-bold hover:underline"
               >
                 {t("login")}
               </button>
