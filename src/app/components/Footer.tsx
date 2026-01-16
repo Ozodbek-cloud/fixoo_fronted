@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import { Instagram, Send } from 'lucide-react';
 
 export function Footer() {
     const t = useTranslations();
@@ -29,11 +29,22 @@ export function Footer() {
                             {t('landing.footer_desc', { defaultMessage: "O'zbekistondagi eng yirik ustalar va xizmatlar platformasi. Uyingiz uchun eng yaxshi yechimlar." })}
                         </p>
                         <div className="flex gap-4">
-                            {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
-                                <div key={i} className="w-10 h-10 rounded-full bg-teal-800 flex items-center justify-center hover:bg-teal-600 transition-colors cursor-pointer border border-teal-700">
-                                    <Icon className="w-5 h-5 text-teal-100" />
-                                </div>
-                            ))}
+                            <a
+                                href="https://www.instagram.com/fixoo.uz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 rounded-full bg-teal-800 flex items-center justify-center hover:bg-teal-600 transition-colors cursor-pointer border border-teal-700"
+                            >
+                                <Instagram className="w-5 h-5 text-teal-100" />
+                            </a>
+                            <a
+                                href="https://t.me/fixoo_uz"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 rounded-full bg-teal-800 flex items-center justify-center hover:bg-teal-600 transition-colors cursor-pointer border border-teal-700"
+                            >
+                                <Send className="w-5 h-5 text-teal-100" />
+                            </a>
                         </div>
                     </div>
 
@@ -63,17 +74,16 @@ export function Footer() {
                     <div>
                         <h3 className="text-lg font-bold mb-6 text-white">{t('contact', { defaultMessage: 'Bog\'lanish' })}</h3>
                         <ul className="space-y-4 text-teal-100/70">
-                            <li className="flex items-start gap-3">
-                                <MapPin className="text-teal-400 w-5 h-5 mt-1 shrink-0" />
-                                <span>{t('footer.address_text', { defaultMessage: 'Toshkent sh., Chilonzor tumani, Bunyodkor ko\'chasi' })}</span>
-                            </li>
                             <li className="flex items-center gap-3">
-                                <Phone className="text-teal-400 w-5 h-5 shrink-0" />
-                                <span>+998 90 123 45 67</span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <Mail className="text-teal-400 w-5 h-5 shrink-0" />
-                                <span>support@fixoo.uz</span>
+                                <Send className="text-teal-400 w-5 h-5 shrink-0" />
+                                <a
+                                    href="https://t.me/fixoomessagebot"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-white transition-colors"
+                                >
+                                    @fixoomessagebot
+                                </a>
                             </li>
                         </ul>
                     </div>

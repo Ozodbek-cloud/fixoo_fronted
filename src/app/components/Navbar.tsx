@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import LangSwitch from "./LangSwitch";
 import Image from "next/image";
@@ -16,13 +16,14 @@ import {
     Menu,
     X,
     ClipboardList,
-    LayoutDashboard
+    Home
 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Navbar({ onViewChange }: { onViewChange?: (view: string) => void }) {
     const router = useRouter();
+    const pathname = usePathname();
     const t = useTranslations();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userRole, setUserRole] = useState<string | null>(null);
@@ -76,8 +77,19 @@ export default function Navbar({ onViewChange }: { onViewChange?: (view: string)
         return `${userData.firstName.charAt(0)}${userData.lastName.charAt(0)}`.toUpperCase();
     };
 
+    const isActive = (path: string) => {
+        const segments = pathname.split('/');
+        // Handle locale prefix (e.g., /uz/masters-feed -> /masters-feed)
+        const pathWithoutLocale = segments.length > 2 ? '/' + segments.slice(2).join('/') : '/';
+
+        if (path === '/') {
+            return pathWithoutLocale === '/' || pathWithoutLocale === '';
+        }
+        return pathWithoutLocale.startsWith(path);
+    };
+
     const navLinks = [
-        { href: "/", label: t("home", { defaultMessage: "Bosh sahifa" }), icon: <LayoutDashboard size={18} /> },
+        { href: "/", label: t("home", { defaultMessage: "Bosh sahifa" }), icon: <Home size={18} /> },
         { href: "/masters-feed", label: t("masters_feed", { defaultMessage: "Ustalar" }), icon: <Hammer size={18} /> },
         { href: "/marketplace", label: t("marketplace", { defaultMessage: "Bozor" }), icon: <ShoppingBag size={18} /> },
     ];
@@ -120,7 +132,14 @@ export default function Navbar({ onViewChange }: { onViewChange?: (view: string)
                 {/* Desktop Menu */}
                 <nav className="hidden lg:flex items-center space-x-6">
                     {navLinks.map((link) => (
-                        <Link key={link.href} href={link.href} className="text-sm p-2 rounded-2xl font-medium   hover:text-teal-200 transition-colors  flex items-center gap-2">
+                        <Link
+                            key={link.href}
+                            href={link.href}
+                            className={`text-sm p-2 px-3 rounded-xl font-medium transition-all flex items-center gap-2 ${isActive(link.href)
+                                    ? "bg-white/20 text-white shadow-sm"
+                                    : "text-teal-50 hover:text-white hover:bg-white/10"
+                                }`}
+                        >
                             {link.icon}
                             {link.label}
                         </Link>
@@ -243,19 +262,19 @@ export default function Navbar({ onViewChange }: { onViewChange?: (view: string)
 
             {/* Mobile Bottom Navigation Bar */}
             <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-3 flex justify-between items-center z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
-                <Link href="/" className="flex flex-col items-center gap-1 text-gray-400 hover:text-teal-600 transition-colors">
-                    <LayoutDashboard size={22} />
+                <Link href="/" className={`flex flex-col items-center gap-1 transition-colors ${isActive('/') ? 'text-teal-600' : 'text-gray-400 hover:text-teal-600'}`}>
+                    <Home size={22} />
                     <span className="text-[10px] font-bold uppercase tracking-wider">{t("home")}</span>
                 </Link>
-                <Link href="/masters-feed" className="flex flex-col items-center gap-1 text-gray-400 hover:text-teal-600 transition-colors">
+                <Link href="/masters-feed" className={`flex flex-col items-center gap-1 transition-colors ${isActive('/masters-feed') ? 'text-teal-600' : 'text-gray-400 hover:text-teal-600'}`}>
                     <Hammer size={22} />
                     <span className="text-[10px] font-bold uppercase tracking-wider">{t("masters_feed")}</span>
                 </Link>
-                <Link href="/marketplace" className="flex flex-col items-center gap-1 text-gray-400 hover:text-teal-600 transition-colors">
+                <Link href="/marketplace" className={`flex flex-col items-center gap-1 transition-colors ${isActive('/marketplace') ? 'text-teal-600' : 'text-gray-400 hover:text-teal-600'}`}>
                     <ShoppingBag size={22} />
                     <span className="text-[10px] font-bold uppercase tracking-wider">{t("marketplace")}</span>
                 </Link>
-                <Link href="/orders" className="flex flex-col items-center gap-1 text-gray-400 hover:text-teal-600 transition-colors">
+                <Link href="/orders" className={`flex flex-col items-center gap-1 transition-colors ${isActive('/orders') ? 'text-teal-600' : 'text-gray-400 hover:text-teal-600'}`}>
                     <ClipboardList size={22} />
                     <span className="text-[10px] font-bold uppercase tracking-wider">{t("orders")}</span>
                 </Link>
