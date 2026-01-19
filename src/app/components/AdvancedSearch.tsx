@@ -137,7 +137,7 @@ export default function AdvancedSearch({ onSearch }: AdvancedSearchProps) {
             return;
         }
         onSearch(filters);
-        
+
         setIsSearching(true);
         setHasSearched(true);
 
@@ -367,6 +367,7 @@ export default function AdvancedSearch({ onSearch }: AdvancedSearchProps) {
                     ))
                 ) : (
                     results.map((product) => (
+        
                         <div key={product.id} className="bg-white rounded-[2.5rem] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 group border border-gray-100">
                             <div className="relative aspect-square mb-5 rounded-3xl overflow-hidden bg-gray-50">
                                 <Image
