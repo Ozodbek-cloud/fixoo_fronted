@@ -51,8 +51,8 @@ const mockMasters = [
         district: 'Marg\'ilon shahri',
         rating: 4.7,
         reviews: 56,
-        image: 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?q=80&w=1000&auto=format&fit=crop',
-        avatar: 'https://i.pravatar.cc/150?u=dilshod',
+        image: '',
+        avatar: '',
         bio: 'Zamonaviy oshxona va yotoqxona mebellarini yasash va o\'rnatish.',
         availableFrom: '2026-01-10'
     },
