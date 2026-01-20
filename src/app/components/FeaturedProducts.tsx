@@ -24,19 +24,42 @@ export default function FeaturedProducts() {
   const t = useTranslations();
 
   const settings = {
+    mobileFirst: true,
     dots: true,
     infinite: true,
-    speed: 600,
-    slidesToShow: 4,
-    slidesToScroll: 1,
+    speed: 500,
     arrows: true,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 2500,
+    swipeToSlide: true,
+    adaptiveHeight: true,
+
+    slidesToShow: 4,
+    slidesToScroll: 1,
+
     responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 2 } },
-      { breakpoint: 640, settings: { slidesToShow: 1 } },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
     ],
   };
+
+
 
   return (
     <section className="py-20 bg-gray-50">
@@ -54,62 +77,64 @@ export default function FeaturedProducts() {
         </div>
 
         {/* Slider */}
-        <Slider {...settings}>
-          {products.map((product) => (
-            <div key={product.id} className="px-3">
-              <div className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 overflow-hidden">
+          <Slider {...settings}>
+            {products.map((product) => (
+              <div key={product.id} className="px-3">
+                <div className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100">
 
-                <div className="relative aspect-square mb-4 bg-gray-50 rounded-xl overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-300 bg-gray-100">
-                    <span className="text-xs">
+                  <div className="relative aspect-square mb-4 bg-gray-50 rounded-xl overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-gray-300 bg-gray-100">
+                      <span className="text-xs">
+                        {t(
+                          `categories.${product.category === 'Asboblar' ? 'tools' : 'cleaning'}`,
+                          { defaultMessage: product.category }
+                        )}
+                      </span>
+                    </div>
+
+                    <button className="absolute top-3 right-3 p-2 rounded-full bg-white shadow-md text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 duration-300">
+                      <Heart size={18} />
+                    </button>
+
+                    <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs font-bold px-2 py-1 rounded-lg">
+                      NEW
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-1 mb-2">
+                      <Star size={14} className="text-yellow-400 fill-yellow-400" />
+                      <span className="text-sm font-bold text-gray-900">{product.rating}</span>
+                      <span className="text-xs text-gray-500">({product.reviews})</span>
+                    </div>
+
+                    <h3 className="font-bold text-gray-900 mb-1 group-hover:text-teal-600 transition-colors line-clamp-1">
+                      {product.name}
+                    </h3>
+
+                    <p className="text-xs text-gray-500 mb-4">
                       {t(
                         `categories.${product.category === 'Asboblar' ? 'tools' : 'cleaning'}`,
                         { defaultMessage: product.category }
                       )}
-                    </span>
+                    </p>
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-lg font-bold text-teal-600">
+                        {product.price} so'm
+                      </span>
+                      <button className="p-2 rounded-xl bg-gray-100 text-gray-900 hover:bg-teal-600 hover:text-white transition-all duration-300">
+                        <ShoppingCart size={18} />
+                      </button>
+                    </div>
                   </div>
 
-                  <button className="absolute top-3 right-3 p-2 rounded-full bg-white shadow-md text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 duration-300">
-                    <Heart size={18} />
-                  </button>
-
-                  <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs font-bold px-2 py-1 rounded-lg">
-                    NEW
-                  </div>
                 </div>
-
-                <div>
-                  <div className="flex items-center gap-1 mb-2">
-                    <Star size={14} className="text-yellow-400 fill-yellow-400" />
-                    <span className="text-sm font-bold text-gray-900">{product.rating}</span>
-                    <span className="text-xs text-gray-500">({product.reviews})</span>
-                  </div>
-
-                  <h3 className="font-bold text-gray-900 mb-1 group-hover:text-teal-600 transition-colors line-clamp-1">
-                    {product.name}
-                  </h3>
-
-                  <p className="text-xs text-gray-500 mb-4">
-                    {t(
-                      `categories.${product.category === 'Asboblar' ? 'tools' : 'cleaning'}`,
-                      { defaultMessage: product.category }
-                    )}
-                  </p>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-teal-600">
-                      {product.price} so'm
-                    </span>
-                    <button className="p-2 rounded-xl bg-gray-100 text-gray-900 hover:bg-teal-600 hover:text-white transition-all duration-300">
-                      <ShoppingCart size={18} />
-                    </button>
-                  </div>
-                </div>
-
               </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        </div>
       </div>
     </section>
   );

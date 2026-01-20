@@ -293,82 +293,88 @@ export default function AdvancedSearch({ onSearch }: AdvancedSearchProps) {
                     </button>
                 </div>
             </div>
-
             {/* Results Grid */}
+            {results.length > 0 && (
+                <h1 className="font-bold text-2xl mb-8">Qidiruv Natijalari</h1>
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {searchType === 'MASTER' ? (
+
                     results.map((master) => (
-                        <div key={master.id} className="bg-white rounded-[2.5rem] p-6 shadow-sm hover:shadow-2xl transition-all duration-500 group border border-gray-100 flex flex-col">
-                            <div className="flex items-start gap-4 mb-6">
-                                <div className="relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border-2 border-teal-50 bg-gray-100">
-                                    <Image
-                                        src={master.avatar || 'https://i.pravatar.cc/150?u=placeholder'}
-                                        alt={master.name}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="flex-1">
-                                    <div className="flex items-center justify-between mb-1">
-                                        <h3 className="font-black text-gray-900 text-xl group-hover:text-teal-600 transition-colors">{master.name}</h3>
-                                        <div className="bg-teal-50 px-2 py-1 rounded-lg flex items-center gap-1">
-                                            <Star size={14} className="text-yellow-400 fill-yellow-400" />
-                                            <span className="text-xs font-bold text-teal-700">{master.rating}</span>
+                        <div key={master.id}>
+                            <div key={master.id} className="bg-white rounded-[2.5rem] p-6 shadow-sm hover:shadow-2xl transition-all duration-500 group border border-gray-100 flex flex-col">
+                                <div className="flex items-start gap-4 mb-6">
+                                    <div className="relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border-2 border-teal-50 bg-gray-100">
+                                        <Image
+                                            src={master.avatar || 'https://i.pravatar.cc/150?u=placeholder'}
+                                            alt={master.name}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="flex items-center justify-between mb-1">
+                                            <h3 className="font-black text-gray-900 text-xl group-hover:text-teal-600 transition-colors">{master.name}</h3>
+                                            <div className="bg-teal-50 px-2 py-1 rounded-lg flex items-center gap-1">
+                                                <Star size={14} className="text-yellow-400 fill-yellow-400" />
+                                                <span className="text-xs font-bold text-teal-700">{master.rating}</span>
+                                            </div>
+                                        </div>
+                                        <p className="text-teal-600 font-bold text-sm uppercase tracking-wider">{master.profession}</p>
+                                        <div className="flex items-center gap-1 text-gray-400 text-xs mt-1">
+                                            <MapPin size={12} />
+                                            <span>{master.region}, {master.district}</span>
                                         </div>
                                     </div>
-                                    <p className="text-teal-600 font-bold text-sm uppercase tracking-wider">{master.profession}</p>
-                                    <div className="flex items-center gap-1 text-gray-400 text-xs mt-1">
-                                        <MapPin size={12} />
-                                        <span>{master.region}, {master.district}</span>
+                                </div>
+
+                                <div className="bg-gray-50 rounded-2xl p-4 mb-6 flex-1">
+                                    <div className="flex items-center gap-2 mb-2 text-gray-900 font-bold text-sm">
+                                        <Info size={16} className="text-teal-600" />
+                                        BIO
                                     </div>
+                                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-3">
+                                        {master.bio}
+                                    </p>
                                 </div>
-                            </div>
 
-                            <div className="bg-gray-50 rounded-2xl p-4 mb-6 flex-1">
-                                <div className="flex items-center gap-2 mb-2 text-gray-900 font-bold text-sm">
-                                    <Info size={16} className="text-teal-600" />
-                                    BIO
-                                </div>
-                                <p className="text-gray-500 text-sm leading-relaxed line-clamp-3">
-                                    {master.bio}
-                                </p>
-                            </div>
-
-                            <div className="space-y-4">
-                                <div className="flex items-center justify-between p-4 bg-teal-50/50 rounded-2xl border border-teal-100/50">
-                                    <div className="flex items-center gap-2 text-teal-700">
-                                        <Calendar size={18} />
-                                        <span className="text-sm font-bold">Bo'shash muddati:</span>
+                                <div className="space-y-4">
+                                    <div className="flex items-center justify-between p-4 bg-teal-50/50 rounded-2xl border border-teal-100/50">
+                                        <div className="flex items-center gap-2 text-teal-700">
+                                            <Calendar size={18} />
+                                            <span className="text-sm font-bold">Bo'shash muddati:</span>
+                                        </div>
+                                        <span className="text-sm font-black text-teal-900">{master.availableFrom}</span>
                                     </div>
-                                    <span className="text-sm font-black text-teal-900">{master.availableFrom}</span>
-                                </div>
 
-                                <div className="flex items-center gap-3">
-                                    <Link
-                                        href={`/masters/${master.id}`}
-                                        className="flex-1 py-4 rounded-2xl bg-gray-100 text-gray-700 font-black hover:bg-gray-200 transition-all flex items-center justify-center gap-2"
-                                    >
-                                        <ExternalLink size={20} />
-                                        Batafsil
-                                    </Link>
-                                    <button
-                                        onClick={() => {
-                                            setSelectedMaster({ id: master.id, name: master.name });
-                                            setIsBookingModalOpen(true);
-                                        }}
-                                        className="flex-1 py-4 rounded-2xl bg-teal-600 text-white font-black hover:bg-teal-700 transition-all shadow-lg shadow-teal-600/20 flex items-center justify-center gap-2"
-                                    >
-                                        <Phone size={20} />
-                                        Bog'lanish
-                                    </button>
+                                    <div className="flex items-center gap-3">
+                                        <Link
+                                            href={`/masters/${master.id}`}
+                                            className="flex-1 py-4 rounded-2xl bg-gray-100 text-gray-700 font-black hover:bg-gray-200 transition-all flex items-center justify-center gap-2"
+                                        >
+                                            <ExternalLink size={20} />
+                                            Batafsil
+                                        </Link>
+                                        <button
+                                            onClick={() => {
+                                                setSelectedMaster({ id: master.id, name: master.name });
+                                                setIsBookingModalOpen(true);
+                                            }}
+                                            className="flex-1 py-4 rounded-2xl bg-teal-600 text-white font-black hover:bg-teal-700 transition-all shadow-lg shadow-teal-600/20 flex items-center justify-center gap-2"
+                                        >
+                                            <Phone size={20} />
+                                            Bog'lanish
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     ))
                 ) : (
                     results.map((product) => (
-        
+
                         <div key={product.id} className="bg-white rounded-[2.5rem] p-5 shadow-sm hover:shadow-2xl transition-all duration-500 group border border-gray-100">
+
                             <div className="relative aspect-square mb-5 rounded-3xl overflow-hidden bg-gray-50">
                                 <Image
                                     src={product.image || 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?q=80&w=1000&auto=format&fit=crop'}

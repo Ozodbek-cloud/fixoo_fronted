@@ -88,19 +88,10 @@ export default function LandingPage() {
                     <>
                         <HeroSection />
                         <div className="container mx-auto px-4 mb-20 mt-10">
+                            
+
                             <AdvancedSearch onSearch={handleSearch} />
-                            {isSearching && (
-                                <div className="mt-12 animate-fade-in-up">
-                                    <h2 className="text-2xl font-bold mb-6 text-gray-900">
-                                        {t('landing.search_results', { defaultMessage: 'Qidiruv natijalari' })}
-                                    </h2>
-                                    <MasterList
-                                        masters={filteredMasters}
-                                        onDetails={handleDetails}
-                                        onContact={handleContact}
-                                    />
-                                </div>
-                            )}
+                           
                         </div>
                         <FeaturedProducts />
                     </>
