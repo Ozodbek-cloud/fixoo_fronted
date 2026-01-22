@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Star, ShoppingCart, Heart } from 'lucide-react';
@@ -9,6 +9,7 @@ import Slider from 'react-slick';
 // slick css larni albatta import qil
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import axios from 'axios';
 
 const products = [
   { id: 1, name: 'Makita DHP482Z', price: '1,200,000', rating: 4.8, reviews: 124, image: '/images/products/drill.png', category: 'Asboblar' },
@@ -21,7 +22,18 @@ const products = [
 ];
 
 export default function FeaturedProducts() {
+  const [adverts, SetAdverts] = useState([])
   const t = useTranslations();
+
+  useEffect( () => {
+    const response = axios.get('https://fixoo-backend.onrender.com/advert', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    }).then(data => SetAdverts(data.data));
+    console.log(response)
+  })
+  console.log(adverts)
 
   const settings = {
     mobileFirst: true,
