@@ -11,29 +11,37 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 
-const products = [
-  { id: 1, name: 'Makita DHP482Z', price: '1,200,000', rating: 4.8, reviews: 124, image: '/images/products/drill.png', category: 'Asboblar' },
-  { id: 2, name: 'Bosch GWS 9-115', price: '850,000', rating: 4.9, reviews: 89, image: '/images/products/grinder.png', category: 'Asboblar' },
-  { id: 2, name: 'Bosch GWS 9-115', price: '850,000', rating: 4.9, reviews: 89, image: '/images/products/grinder.png', category: 'Asboblar' },
-  { id: 3, name: 'Karcher WD 3', price: '1,500,000', rating: 4.7, reviews: 210, image: '/images/products/vacuum.png', category: 'Tozalash' },
-  { id: 3, name: 'Karcher WD 3', price: '1,500,000', rating: 4.7, reviews: 210, image: '/images/products/vacuum.png', category: 'Tozalash' },
-  { id: 4, name: 'Stanley FatMax', price: '450,000', rating: 4.6, reviews: 56, image: '/images/products/toolbox.png', category: 'Asboblar' },
-  { id: 4, name: 'Stanley FatMax', price: '450,000', rating: 4.6, reviews: 56, image: '/images/products/toolbox.png', category: 'Asboblar' },
-];
+interface AdvertInter {
+  text: string,
+  photoUrl : string,
+  id: number,
+}
 
 export default function FeaturedProducts() {
-  const [adverts, SetAdverts] = useState([])
+  const [adverts, setAdverts] = useState<AdvertInter[]>([])
   const t = useTranslations();
 
-  useEffect( () => {
-    const response = axios.get('https://fixoo-backend.onrender.com/advert', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    }).then(data => SetAdverts(data.data));
-    console.log(response)
-  })
-  console.log(adverts)
+  useEffect(() => {
+    const fetchAdverts = async () => {
+      try {
+        const response = await axios.get(
+          'https://fixoo-backend.onrender.com/advert',
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1N2UzZDJlLTY2YTktNDhiZS05Yzk5LTAyMTc4MjE1NmNjOCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2OTE4NTgxOCwiZXhwIjoxNzcxODY0MjE4fQ.QxThAfOW6vozTkSuOZ_i6HxttiWKQ7pZ1hP9j0ktcv0`,
+            },
+          }
+        );
+
+        setAdverts(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchAdverts();
+  }, []);
+    console.log(adverts)
 
   const settings = {
     mobileFirst: true,
@@ -91,18 +99,19 @@ export default function FeaturedProducts() {
         {/* Slider */}
         <div className="max-w-7xl mx-auto px-4 overflow-hidden">
           <Slider {...settings}>
-            {products.map((product) => (
+            {adverts.map((product) => (
               <div key={product.id} className="px-3">
                 <div className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100">
 
                   <div className="relative aspect-square mb-4 bg-gray-50 rounded-xl overflow-hidden">
                     <div className="absolute inset-0 flex items-center justify-center text-gray-300 bg-gray-100">
-                      <span className="text-xs">
+                      <Image src={product.photoUrl} alt='' width={250} height={150}/>
+                      {/* <span className="text-xs">
                         {t(
                           `categories.${product.category === 'Asboblar' ? 'tools' : 'cleaning'}`,
                           { defaultMessage: product.category }
                         )}
-                      </span>
+                      </span> */}
                     </div>
 
                     <button className="absolute top-3 right-3 p-2 rounded-full bg-white shadow-md text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 duration-300">
@@ -117,25 +126,23 @@ export default function FeaturedProducts() {
                   <div>
                     <div className="flex items-center gap-1 mb-2">
                       <Star size={14} className="text-yellow-400 fill-yellow-400" />
-                      <span className="text-sm font-bold text-gray-900">{product.rating}</span>
-                      <span className="text-xs text-gray-500">({product.reviews})</span>
+                      <span className="text-xs text-gray-500">({product.text})</span>
                     </div>
 
                     <h3 className="font-bold text-gray-900 mb-1 group-hover:text-teal-600 transition-colors line-clamp-1">
-                      {product.name}
+                      {product.text}
                     </h3>
 
-                    <p className="text-xs text-gray-500 mb-4">
+                    {/* <p className="text-xs text-gray-500 mb-4">
                       {t(
                         `categories.${product.category === 'Asboblar' ? 'tools' : 'cleaning'}`,
                         { defaultMessage: product.category }
                       )}
-                    </p>
+                    </p> */}
 
                     <div className="flex items-center justify-between">
                       <span className="text-lg font-bold text-teal-600">
-                        {product.price} so'm
-                      </span>
+                        Reklama                      </span>
                       <button className="p-2 rounded-xl bg-gray-100 text-gray-900 hover:bg-teal-600 hover:text-white transition-all duration-300">
                         <ShoppingCart size={18} />
                       </button>
