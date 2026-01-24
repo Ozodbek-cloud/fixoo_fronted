@@ -19,6 +19,16 @@ import {
     Search,
     Filter
 } from 'lucide-react';
+
+type ProductRow = {
+    name: string;
+    unit: string;
+    size: string;
+    quantity: string;
+    category: string;
+    images: File[];
+};
+
 import Image from 'next/image';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,7 +38,6 @@ export default function ShopDashboardPage() {
     const [activeTab, setActiveTab] = useState<'stats' | 'products' | 'orders'>('stats');
     const [products, setProducts] = useState<any[]>([]);
     const [orders, setOrders] = useState<any[]>([]);
-    const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
     const [newProduct, setNewProduct] = useState({
         name: '',
         price: '',
@@ -41,6 +50,66 @@ export default function ShopDashboardPage() {
         length: '',
         lengthUnit: 'm'
     });
+
+    const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(true);
+
+    const [rows, setRows] = useState<ProductRow[]>([
+        {
+            name: "",
+            unit: "",
+            size: "",
+            quantity: "",
+            category: "",
+            images: [],
+        },
+    ]);
+
+    const updateRow = <K extends keyof ProductRow>(
+        index: number,
+        field: K,
+        value: ProductRow[K]
+    ) => {
+        setRows(prev =>
+            prev.map((row, i) =>
+                i === index ? { ...row, [field]: value } : row
+            )
+        );
+    };
+
+    const addRow = () => {
+        setRows(prev => [
+            ...prev,
+            {
+                name: "",
+                unit: "",
+                size: "",
+                quantity: "",
+                category: "",
+                images: [],
+            },
+        ]);
+    };
+
+    const handleImageUpload = (index: number, files: FileList | null) => {
+        if (!files) return;
+        setRows(prev =>
+            prev.map((row, i) =>
+                i === index
+                    ? { ...row, images: [...row.images, ...Array.from(files)] }
+                    : row
+            )
+        );
+    };
+
+    const emptyRow = {
+        name: "",
+        unit: "",
+        size: "",
+        quantity: "",
+        price: "",
+        category: "",
+        imageCount: 0,
+    };
 
     useEffect(() => {
         // Load mock data
@@ -262,7 +331,7 @@ export default function ShopDashboardPage() {
                 )}
 
                 {activeTab === 'orders' && (
-                    <div className="bg-white rounded-[3rem] shadow-sm border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="bg-white  rounded-[3rem] shadow-sm border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="p-8 border-b border-gray-50 flex justify-between items-center">
                             <h3 className="text-xl font-black text-gray-900">Barcha buyurtmalar</h3>
                             <button className="flex items-center gap-2 text-gray-400 hover:text-teal-600 font-bold transition-colors">
@@ -327,141 +396,131 @@ export default function ShopDashboardPage() {
             {/* Add Product Modal */}
             {isAddProductModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-                    <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" onClick={() => setIsAddProductModalOpen(false)} />
-                    <div className="relative bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in duration-300">
-                        <div className="p-8">
-                            <h2 className="text-2xl font-black text-gray-900 mb-6">Yangi mahsulot qo'shish</h2>
-                            <form onSubmit={handleAddProduct} className="space-y-5">
-                                <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Nomi</label>
-                                    <input
-                                        required
-                                        type="text"
-                                        className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none"
-                                        value={newProduct.name}
-                                        onChange={e => setNewProduct({ ...newProduct, name: e.target.value })}
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Narxi (UZS)</label>
-                                    <input
-                                        required
-                                        type="text"
-                                        className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none"
-                                        value={newProduct.price}
-                                        onChange={e => setNewProduct({ ...newProduct, price: e.target.value })}
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Kategoriya</label>
-                                    <select
-                                        required
-                                        className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none"
-                                        value={newProduct.category}
-                                        onChange={e => setNewProduct({ ...newProduct, category: e.target.value })}
-                                    >
-                                        <option value="">Tanlang</option>
-                                        <option value="Asboblar">Asboblar</option>
-                                        <option value="Qurilish mollari">Qurilish mollari</option>
-                                        <option value="Santexnika">Santexnika</option>
-                                    </select>
-                                </div>
+                    <div
+                        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                        onClick={() => setIsAddProductModalOpen(false)}
+                    />
 
-                                <div className="grid grid-cols-3 gap-4">
-                                    <div>
-                                        <label className="block text-sm font-bold text-gray-700 mb-2">Og'irlik (ixtiyoriy)</label>
-                                        <div className="flex gap-2">
-                                            <input
-                                                type="text"
-                                                className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none"
-                                                value={newProduct.weight}
-                                                onChange={e => setNewProduct({ ...newProduct, weight: e.target.value })}
-                                                placeholder="0.5"
-                                            />
-                                            <select
-                                                className="p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none"
-                                                value={newProduct.weightUnit}
-                                                onChange={e => setNewProduct({ ...newProduct, weightUnit: e.target.value })}
-                                            >
-                                                <option value="gram">gr</option>
-                                                <option value="kg">kg</option>
-                                                <option value="ton">t</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-bold text-gray-700 mb-2">Hajm (ixtiyoriy)</label>
-                                        <div className="flex gap-2">
-                                            <input
-                                                type="text"
-                                                className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none"
-                                                value={newProduct.volume}
-                                                onChange={e => setNewProduct({ ...newProduct, volume: e.target.value })}
-                                                placeholder="1"
-                                            />
-                                            <select
-                                                className="p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none"
-                                                value={newProduct.volumeUnit}
-                                                onChange={e => setNewProduct({ ...newProduct, volumeUnit: e.target.value })}
-                                            >
-                                                <option value="ml">ml</option>
-                                                <option value="l">l</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-bold text-gray-700 mb-2">Uzunlik (ixtiyoriy)</label>
-                                        <div className="flex gap-2">
-                                            <input
-                                                type="text"
-                                                className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none"
-                                                value={newProduct.length}
-                                                onChange={e => setNewProduct({ ...newProduct, length: e.target.value })}
-                                                placeholder="10"
-                                            />
-                                            <select
-                                                className="p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none"
-                                                value={newProduct.lengthUnit}
-                                                onChange={e => setNewProduct({ ...newProduct, lengthUnit: e.target.value })}
-                                            >
-                                                <option value="mm">mm</option>
-                                                <option value="cm">cm</option>
-                                                <option value="m">m</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div className="relative bg-white w-full max-w-6xl rounded-[2.5rem] p-8 shadow-2xl">
+                        <h2 className="text-2xl font-black mb-6">
+                            DO‘KON UCHUN MAHSULOT QO‘SHISH
+                        </h2>
 
-                                <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Rasm URL (ixtiyoriy)</label>
-                                    <input
-                                        type="text"
-                                        className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none"
-                                        value={newProduct.image}
-                                        onChange={e => setNewProduct({ ...newProduct, image: e.target.value })}
-                                        placeholder="https://images.unsplash.com/..."
-                                    />
-                                </div>
-                                <div className="flex gap-4 pt-4">
-                                    <button
-                                        type="button"
-                                        onClick={() => setIsAddProductModalOpen(false)}
-                                        className="flex-1 py-4 bg-gray-100 text-gray-600 rounded-2xl font-black"
-                                    >
-                                        Bekor qilish
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        className="flex-[2] py-4 bg-teal-600 text-white rounded-2xl font-black shadow-xl shadow-teal-600/20"
-                                    >
-                                        Qo'shish
-                                    </button>
-                                </div>
-                            </form>
+                        <div className="overflow-x-auto">
+                            <table className="w-full border-separate border-spacing-y-3">
+                                <thead>
+                                    <tr className="text-left text-sm text-gray-500">
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Unit</th>
+                                        <th>Size</th>
+                                        <th>Qty</th>
+                                        <th>Category</th>
+                                        <th>Image</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {rows.map((row, i) => (
+                                        <tr key={i} className="bg-gray-50">
+                                            <td className="p-3 font-bold">{i + 1}</td>
+
+                                            <td className="p-3">
+                                                <input
+                                                    className="input"
+                                                    value={row.name}
+                                                    onChange={e =>
+                                                        updateRow(i, "name", e.target.value)
+                                                    }
+                                                />
+                                            </td>
+
+                                            <td className="p-3">
+                                                <select
+                                                    className="input"
+                                                    value={row.unit}
+                                                    onChange={e =>
+                                                        updateRow(i, "unit", e.target.value)
+                                                    }
+                                                >
+                                                    <option value="">Select</option>
+                                                    <option value="dona">dona</option>
+                                                    <option value="m">m</option>
+                                                    <option value="kg">kg</option>
+                                                </select>
+                                            </td>
+
+                                            <td className="p-3">
+                                                <input
+                                                    className="input"
+                                                    value={row.size}
+                                                    onChange={e =>
+                                                        updateRow(i, "size", e.target.value)
+                                                    }
+                                                />
+                                            </td>
+
+                                            <td className="p-3">
+                                                <input
+                                                    className="input"
+                                                    value={row.quantity}
+                                                    onChange={e =>
+                                                        updateRow(i, "quantity", e.target.value)
+                                                    }
+                                                />
+                                            </td>
+
+                                            <td className="p-3">
+                                                <select
+                                                    className="input"
+                                                    value={row.category}
+                                                    onChange={e =>
+                                                        updateRow(i, "category", e.target.value)
+                                                    }
+                                                >
+                                                    <option value="">Select</option>
+                                                    <option value="Santexnika">Santexnika</option>
+                                                    <option value="Qurilish mollari">
+                                                        Qurilish mollari
+                                                    </option>
+                                                </select>
+                                            </td>
+
+                                            <td className="p-3">
+                                                <label className="cursor-pointer bg-gray-200 px-4 py-2 rounded-xl font-bold text-sm inline-block">
+                                                    ☁ Upload ({row.images.length})
+                                                    <input
+                                                        type="file"
+                                                        multiple
+                                                        className="hidden"
+                                                        onChange={e =>
+                                                            handleImageUpload(i, e.target.files)
+                                                        }
+                                                    />
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="flex justify-between mt-6">
+                            <button
+                                onClick={addRow}
+                                className="text-blue-600 font-bold"
+                            >
+                                ➕ Add new product row
+                            </button>
+
+                            <button className="bg-green-600 text-white px-6 py-3 rounded-xl font-bold">
+                                💾 Save all products
+                            </button>
                         </div>
                     </div>
                 </div>
             )}
+
 
             <ToastContainer position="bottom-right" />
         </div>
