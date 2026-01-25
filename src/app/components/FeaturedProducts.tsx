@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Star, ShoppingCart, Heart } from 'lucide-react';
 import Slider from 'react-slick';
-
+import { useRouter } from 'next/navigation';
 // slick css larni albatta import qil
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -15,9 +15,11 @@ interface AdvertInter {
   text: string,
   photoUrl : string,
   id: number,
+  serverLink: string
 }
 
 export default function FeaturedProducts() {
+  const router = useRouter()
   const [adverts, setAdverts] = useState<AdvertInter[]>([])
   const t = useTranslations();
 
@@ -100,7 +102,7 @@ export default function FeaturedProducts() {
         <div className="max-w-7xl mx-auto px-4 overflow-hidden">
           <Slider {...settings}>
             {adverts.map((product) => (
-              <div key={product.id} className="px-3">
+              <div onClick={() => router.push(product.serverLink)} key={product.id} className="px-3">
                 <div className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100">
 
                   <div className="relative aspect-square mb-4 bg-gray-50 rounded-xl overflow-hidden">
